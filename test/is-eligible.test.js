@@ -7,13 +7,13 @@ describe('Rejects urls we do not want to process', () => {
     'file:///c/file/test.png'
   ];
 
-  test('Rejects absolute urls', async () => {
-    absolute.forEach(url => {
+  absolute.forEach(url => {
+    test(url, () => {
       expect(isEligible(url)).toBe(false);
     });
   });
 
-  test('Rejects already assetified urls', async () => {
+  test('Rejects already assetified urls', () => {
     const url = "{{ 'img/test.png' | asset_url }}";
     expect(isEligible(url)).toBe(false);
   });
@@ -22,7 +22,7 @@ describe('Rejects urls we do not want to process', () => {
 describe('Accepts urls we do want to process', () => {
   const relative = ['images/test.png', '../css/my file (2).css', './js/app.css'];
 
-  test('Accepts relative urls', async () => {
+  test('Accepts relative urls', () => {
     relative.forEach(url => {
       expect(isEligible(url)).toBe(true);
     });
