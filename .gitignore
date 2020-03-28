@@ -1,0 +1,12 @@
+node_modules
+.marketplace-kit
+.pos
+.DS_Store
+.env
+*.log
+*.swp
+tags
+**/tmp
+
+app/
+modules/
