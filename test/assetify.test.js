@@ -1,0 +1,1 @@
+const assetify = require('../lib/assetify')

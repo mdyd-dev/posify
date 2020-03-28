@@ -1,6 +1,6 @@
 const fs = require('fs');
 const glob = require('tiny-glob');
-const assetify = require('./assetify');
+const assetify = require('./lib/assetify');
 
 const getHtml = filePath => {
   return {
@@ -9,9 +9,16 @@ const getHtml = filePath => {
   };
 };
 
-const saveAssetified = ({ filePath, html }) => {
-  fs.renameSync(filePath, `${filePath}.bak`); // Make backup, just in case something goes wrong
-  fs.writeFileSync(`${filePath}`, html); // Save assetified version in original path
+const backup = ({ filePath, html }) => {
+    fs.renameSync(filePath, `${filePath}.bak`);
+    return {
+        filePath, html
+    }
+}
+
+const save = ({ filePath, html }) => {
+    fs.writeFileSync(`${filePath}`, html);
+    return { filePath, html }
 };
 
 (async function() {
@@ -20,5 +27,6 @@ const saveAssetified = ({ filePath, html }) => {
   files
     .map(getHtml)
     .map(assetify)
-    .map(saveAssetified);
+    .map(backup) // Make backup, just in case something goes wrong
+    .map(save);  // Save assetified version in original path
 })();
