@@ -13,6 +13,7 @@ const download = ({ url }) =>
 
 class DownloadCommand extends Command {
   async run() {
+    const cli = this;
     const { flags } = this.parse(DownloadCommand);
 
     const wget = download(flags);
@@ -25,10 +26,10 @@ class DownloadCommand extends Command {
 
     wget.on("close", code => {
       if (code !== 0) {
-        return console.log("Something went wrong.");
+        cli.error("Something went wrong.");
       }
 
-      console.log("Done");
+      cli.log("Done.");
     });
   }
 }
