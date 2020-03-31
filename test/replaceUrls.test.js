@@ -1,8 +1,8 @@
-const assetify = require('../src/lib/assetify');
+const replaceUrls = require('../src/lib/replaceUrls');
 
 const fs = require('fs');
 const input = fs.readFileSync('./test/fixtures/test.html').toString();
-const { html } = assetify({ filePath: '', html: input });
+const { html } = replaceUrls({ filePath: '', html: input });
 
 describe('Link CSS', () => {
   const expected = [

@@ -1,24 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="../styles/style.css">
+<!DOCTYPE html><html lang="en"><head>
+    <link rel="stylesheet" href="{{ 'styles/style.css' | asset_url }}">
+    <link rel="stylesheet" href="{{ '../styles/style.css' | asset_url }}">
     <link rel="stylesheet" href="http://example.com/assets/styles/style.css">
     <link rel="stylesheet" href="https://example.com/assets/styles/style.css">
     <link rel="stylesheet" href="//example.com/assets/styles/style.css">
     <link rel="stylesheet" href="javascript:alert(this);">
 </head>
 <body>
-    <img src="images/my_image+2.png" alt="My test alt">
-    <img src="../images/my_image+2.png" alt="My test alt">
+    <img src="{{ 'images/my_image+2.png' | asset_url }}" alt="My test alt">
+    <img src="{{ '../images/my_image+2.png' | asset_url }}" alt="My test alt">
     <img src="http://example.com/assets/images/my_image+2.png" alt="My test alt">
     <img src="https://example.com/assets/images/my_image+2.png" alt="My test alt">
     <img src="data:image/jpeg;base64,/" alt="My test alt">
 
-    <script src="scripts/app.js"></script>
-    <script src="../scripts/app.js"></script>
+    <script src="{{ 'scripts/app.js' | asset_url }}"></script>
+    <script src="{{ '../scripts/app.js' | asset_url }}"></script>
     <script src="http://example.com/assets/scripts/app.js"></script>
     <script src="https://example.com/assets/scripts/app.js"></script>
     <script src="//example.com/assets/scripts/app.js"></script>
-</body>
-</html>
+
+</body></html>

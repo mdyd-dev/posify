@@ -1,6 +1,4 @@
 node_modules
-.marketplace-kit
-.pos
 .DS_Store
 .env
 *.log
@@ -8,5 +6,5 @@ node_modules
 tags
 **/tmp
 
-app/
-modules/
+www*
+*.com*

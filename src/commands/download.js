@@ -1,17 +1,15 @@
 const { Command, flags } = require("@oclif/command");
-
 const { spawn } = require("child_process");
 
-const download = ({ url }) => {
-  return (wget = spawn("wget", [
+const download = ({ url }) =>
+  spawn("wget", [
     url,
     "--convert-links",
     "--adjust-extension",
     "--page-requisites",
     "--no-parent",
     "--mirror"
-  ]));
-};
+  ]);
 
 class DownloadCommand extends Command {
   async run() {
@@ -26,11 +24,11 @@ class DownloadCommand extends Command {
     });
 
     wget.on("close", code => {
-      if (code == 0) {
-        console.log("Done");
-      } else {
-        console.log("Something went wrong.");
+      if (code !== 0) {
+        return console.log("Something went wrong.");
       }
+
+      console.log("Done");
     });
   }
 }

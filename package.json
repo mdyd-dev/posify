@@ -28,9 +28,6 @@
     "/src"
   ],
   "homepage": "https://github.com/pavelloz/posify",
-  "keywords": [
-    "oclif"
-  ],
   "license": "MIT",
   "main": "src/index.js",
   "oclif": {
