@@ -1,4 +1,4 @@
-const isEligible = require('../lib/is-eligible');
+const isEligible = require('../src/lib/is-eligible');
 
 describe('Rejects urls we do not want to process', () => {
   const absolute = [

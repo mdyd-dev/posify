@@ -1,19 +1,51 @@
 {
   "name": "posify",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "dependencies": {},
+  "description": "Convert your webpage to platformOS one",
+  "version": "0.0.0",
+  "author": "Paweł Kowalski @pavelloz",
+  "bin": {
+    "posify": "./bin/run"
+  },
+  "bugs": "https://github.com/pavelloz/posify/issues",
+  "dependencies": {
+    "@oclif/command": "^1",
+    "@oclif/config": "^1",
+    "@oclif/plugin-help": "^2"
+  },
   "devDependencies": {
-    "jest": "^25.2.3",
-    "jsdom": "^16.2.1",
-    "tiny-glob": "^0.2.6"
+    "@oclif/dev-cli": "^1",
+    "globby": "^10",
+    "jest": "^25.2.4",
+    "jsdom": "^16.2.2"
   },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "/src"
+  ],
+  "homepage": "https://github.com/pavelloz/posify",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "oclif": {
+    "commands": "./src/commands",
+    "bin": "posify",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "mdyd-dev/posify",
   "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "oclif-dev manifest && oclif-dev readme",
     "test": "jest --runInBand",
-    "test-watch": "jest --watchAll --runInBand"
-  },
-  "keywords": [],
-  "author": "Paweł Kowalski <pavelloz@gmail.com>",
-  "license": "MIT"
+    "test-watch": "jest --watchAll --runInBand",
+    "version": "oclif-dev readme && git add README.md"
+  }
 }

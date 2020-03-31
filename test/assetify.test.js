@@ -1,4 +1,4 @@
-const assetify = require('../lib/assetify');
+const assetify = require('../src/lib/assetify');
 
 const fs = require('fs');
 const input = fs.readFileSync('./test/fixtures/test.html').toString();
