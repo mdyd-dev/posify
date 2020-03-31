@@ -15,7 +15,7 @@ $ npm install -g posify
 $ posify COMMAND
 running command...
 $ posify (-v|--version|version)
-posify/0.0.0 darwin-x64 node-v12.11.0
+posify/0.0.1 darwin-x64 node-v12.11.0
 $ posify --help [COMMAND]
 USAGE
   $ posify COMMAND
@@ -46,7 +46,7 @@ DESCRIPTION
   Find and replace asset urls in html files
 ```
 
-_See code: [src/commands/assetify.js](https://github.com/mdyd-dev/posify/blob/v0.0.0/src/commands/assetify.js)_
+_See code: [src/commands/assetify.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/assetify.js)_
 
 ## `posify download`
 
@@ -64,7 +64,7 @@ DESCRIPTION
   It will download files and not manipulate them.
 ```
 
-_See code: [src/commands/download.js](https://github.com/mdyd-dev/posify/blob/v0.0.0/src/commands/download.js)_
+_See code: [src/commands/download.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/download.js)_
 
 ## `posify help [COMMAND]`
 
@@ -92,14 +92,15 @@ USAGE
   $ posify simpleform
 
 OPTIONS
-  -i, --input=input  (required) [default: .] Input directory
+  -i, --input=input    (required) [default: .] Input directory
+  -o, --output=output  (required) [default: .] Output directory
 
 DESCRIPTION
   Downloads simpleform module
   Replaces action attribute to use simpleform module that sends email to the app owner
 ```
 
-_See code: [src/commands/simpleform.js](https://github.com/mdyd-dev/posify/blob/v0.0.0/src/commands/simpleform.js)_
+_See code: [src/commands/simpleform.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/simpleform.js)_
 
 ## `posify split`
 
@@ -117,5 +118,5 @@ DESCRIPTION
   Puts assets into assets, views into views.
 ```
 
-_See code: [src/commands/split.js](https://github.com/mdyd-dev/posify/blob/v0.0.0/src/commands/split.js)_
+_See code: [src/commands/split.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/split.js)_
 <!-- commandsstop -->
