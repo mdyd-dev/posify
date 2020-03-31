@@ -1,6 +1,6 @@
-const replaceUrls = require('../src/lib/replaceUrls');
-
 const fs = require('fs');
+
+const replaceUrls = require('../src/lib/replace-urls');
 const input = fs.readFileSync('./test/fixtures/test.html').toString();
 const { html } = replaceUrls({ filePath: '', html: input });
 

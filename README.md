@@ -24,29 +24,47 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-- [posify](#posify)
-- [Usage](#usage)
-- [Commands](#commands)
-  - [`posify hello`](#posify-hello)
-  - [`posify help [COMMAND]`](#posify-help-command)
+* [`posify assetify`](#posify-assetify)
+* [`posify download`](#posify-download)
+* [`posify help [COMMAND]`](#posify-help-command)
+* [`posify simpleform`](#posify-simpleform)
+* [`posify split`](#posify-split)
 
-## `posify hello`
+## `posify assetify`
 
-Describe the command here
+Convert relative assets paths to asset_url
 
 ```
 USAGE
-  $ posify hello
+  $ posify assetify
 
 OPTIONS
-  -n, --name=name  name to print
+  -i, --input=input    (required) [default: .] Input directory
+  -o, --output=output  (required) [default: .] Output directory
 
 DESCRIPTION
-  ...
-  Extra documentation goes here
+  Find and replace asset urls in html files
 ```
 
-_See code: [src/commands/hello.js](https://github.com/pavelloz/posify/blob/v0.0.0/src/commands/hello.js)_
+_See code: [src/commands/assetify.js](https://github.com/mdyd-dev/posify/blob/v0.0.0/src/commands/assetify.js)_
+
+## `posify download`
+
+Download webpage using wget.
+
+```
+USAGE
+  $ posify download
+
+OPTIONS
+  -u, --url=url  (required) Address of webpage to download
+
+DESCRIPTION
+  This is the first step in covert process.
+  It will download files and not manipulate them.
+```
+
+_See code: [src/commands/download.js](https://github.com/mdyd-dev/posify/blob/v0.0.0/src/commands/download.js)_
 
 ## `posify help [COMMAND]`
 
@@ -64,4 +82,40 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
+
+## `posify simpleform`
+
+Converts forms to simple form
+
+```
+USAGE
+  $ posify simpleform
+
+OPTIONS
+  -i, --input=input  (required) [default: .] Input directory
+
+DESCRIPTION
+  Downloads simpleform module
+  Replaces action attribute to use simpleform module that sends email to the app owner
+```
+
+_See code: [src/commands/simpleform.js](https://github.com/mdyd-dev/posify/blob/v0.0.0/src/commands/simpleform.js)_
+
+## `posify split`
+
+Split downloaded page into pos directory structure
+
+```
+USAGE
+  $ posify split
+
+OPTIONS
+  -i, --input=input    (required) [default: .] Input directory
+  -o, --output=output  (required) [default: .] Output directory
+
+DESCRIPTION
+  Puts assets into assets, views into views.
+```
+
+_See code: [src/commands/split.js](https://github.com/mdyd-dev/posify/blob/v0.0.0/src/commands/split.js)_
 <!-- commandsstop -->

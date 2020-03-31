@@ -6,7 +6,7 @@ const mv = require("mvdir");
 const ASSETS_EXT =
   "css,csv,doc,docx,gif,ico,jpeg,jpg,js,mp3,mp4,ogg,otf,pdf,png,ppt,svg,ttf,eot,txt,webm,webp,woff,woff2,xls,xlsx,zip";
 
-const movePages = async ({ input, output }) => {
+const copyPages = async ({ input, output }) => {
   const files = await glob(`${input}/**/*.html`);
 
   files.forEach(async inputFile => {
@@ -17,7 +17,7 @@ const movePages = async ({ input, output }) => {
   });
 };
 
-const moveAssets = async ({ input, output }) => {
+const copyAssets = async ({ input, output }) => {
   const files = await glob(`${input}/**/*.{${ASSETS_EXT}}`);
 
   files.forEach(async inputFile => {
@@ -32,8 +32,8 @@ class SplitCommand extends Command {
   async run() {
     const { flags } = this.parse(SplitCommand);
 
-    movePages(flags);
-    moveAssets(flags);
+    copyPages(flags);
+    copyAssets(flags);
   }
 }
 
