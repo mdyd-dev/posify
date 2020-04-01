@@ -1,40 +1,45 @@
-const jsdom = require('jsdom');
+const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
-const isEligible = require('./is-eligible');
+const isEligible = require("./is-eligible");
+
+const getUrl = url => {
+  return url
+    .split(/(\?|%3F)/)              // get rid off query params
+    .shift()                        // take first element
+    .replace(/(\.\.\/|\.\/)/g, "")  // cut out ../ and ./
+};
 
 const assetify = url => {
-  return `{{ '${url}' | asset_url }}`;
+  const assetPath = getUrl(url);
+  return `{{ '${assetPath}' | asset_url }}`;
 };
 
 module.exports = ({ filePath, html }) => {
   const dom = new JSDOM(html);
 
-  const img = dom.window.document.querySelectorAll('img');
+  const img = dom.window.document.querySelectorAll("img");
   const css = dom.window.document.querySelectorAll('link[rel="stylesheet"]');
-  const js = dom.window.document.querySelectorAll('script[src]');
+  const js = dom.window.document.querySelectorAll("script[src]");
 
   img.forEach(el => {
-    const url = el.src.split('?').shift();
-
-    if (isEligible(url)) {
-      el.src = assetify(url);
+    if (!isEligible(el.src)) {
+      return;
     }
+    el.src = assetify(el.src);
   });
 
   css.forEach(el => {
-    const url = el.href.split('?').shift();
-
-    if (isEligible(url)) {
-      el.href = assetify(url);
+    if (!isEligible(el.href)) {
+      return;
     }
+    el.href = assetify(el.href);
   });
 
   js.forEach(el => {
-    const url = el.src.split('?').shift();
-
-    if (isEligible(url)) {
-      el.src = assetify(url);
+    if (!isEligible(el.src)) {
+      return;
     }
+    el.src = assetify(el.src);
   });
 
   return {

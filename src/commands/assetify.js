@@ -11,14 +11,14 @@ const ext = "html";
 class AssetifyCommand extends Command {
   async run() {
     const { flags } = this.parse(AssetifyCommand);
-
+    const output = flags.output || flags.input;
     let files = await glob(`${flags.input}/**/*.html`);
 
     files
       .map(getHtml)
       .map(replaceUrls)
       .map(({ filePath, html }) =>
-        saveFile({ filePath, html, input: flags.input, output: flags.output, ext })
+        saveFile({ filePath, html, input: flags.input, output, ext })
       );
   }
 }
@@ -36,9 +36,7 @@ AssetifyCommand.flags = {
   }),
   output: flags.string({
     char: "o",
-    description: "Output directory",
-    required: true,
-    default: "."
+    description: "Output directory"
   })
 };
 

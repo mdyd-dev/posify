@@ -6,9 +6,8 @@ module.exports = ({ filePath, html }) => {
 
   const forms = dom.window.document.querySelectorAll('form[action]');
 
-  form.forEach(el => {
-    const action = el.action;
-    action = '/__form';
+  forms.forEach(el => {
+    el.action = '/__form';
   });
 
   return {

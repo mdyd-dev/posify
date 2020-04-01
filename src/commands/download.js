@@ -3,20 +3,17 @@ const { spawn } = require("child_process");
 
 const ora = require('ora');
 
-const renameHtmToHtml = require('../lib/renameHtmToHtml');
-
 const download = ({ url, output }) => {
   const params = [
     url,
     "--convert-links",
-    // "--backup-converted",
     "--adjust-extension",
     "--page-requisites",
     "--no-parent",
     "--mirror",
     // "--wait=1",
-    // "--tries=3",
-    // "--waitretry=3"
+    "--tries=3",
+    "--waitretry=3"
   ];
 
   console.log(`Running wget with params: ${params.join(' ')}`)
@@ -47,8 +44,6 @@ class DownloadCommand extends Command {
         spinner.fail(`[Code: ${code}] Something went wrong.`);
         process.exit(1);
       }
-
-      renameHtmToHtml(domain); // Rename .htm -> .html
 
       spinner.succeed("Website downloaded.");
     });

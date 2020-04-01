@@ -13,10 +13,12 @@
     "@oclif/plugin-help": "^2",
     "@oclif/plugin-not-found": "^1.2.3",
     "@oclif/plugin-warn-if-update-available": "^1.7.0",
+    "clean-css": "^4.2.3",
     "globby": "^10",
     "jsdom": "^16.2.2",
     "mvdir": "^1.0.17",
-    "ora": "^4.0.3"
+    "ora": "^4.0.3",
+    "terser": "^4.6.10"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",

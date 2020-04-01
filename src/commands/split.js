@@ -3,6 +3,9 @@ const { Command, flags } = require("@oclif/command");
 const glob = require("globby");
 const mv = require("mvdir");
 
+const renameHtmToHtml = require('../lib/renameHtmToHtml');
+
+
 const ASSETS_EXT =
   "css,csv,doc,docx,gif,ico,jpeg,jpg,js,mp3,mp4,ogg,otf,pdf,png,ppt,svg,ttf,eot,txt,webm,webp,woff,woff2,xls,xlsx,zip";
 
@@ -35,6 +38,8 @@ class SplitCommand extends Command {
   async run() {
     const { flags } = this.parse(SplitCommand);
 
+    renameHtmToHtml(flags.input); // Rename .htm -> .html
+
     copyPages(flags);
     copyAssets(flags);
   }
@@ -48,14 +53,12 @@ SplitCommand.flags = {
   input: flags.string({
     char: "i",
     description: "Input directory",
-    required: true,
-    default: "."
+    required: true
   }),
   output: flags.string({
     char: "o",
     description: "Output directory",
-    required: true,
-    default: "."
+    required: true
   })
 };
 

@@ -10,25 +10,30 @@ const saveFile = require("../lib/save-file");
 class Simpleform extends Command {
   async run() {
     const { flags } = this.parse(Simpleform);
+    const output = flags.output || flags.input;
 
-    try {
-      spawn(
-        "pos-cli",
-        ["init", "--url https://github.com/mdyd-dev/simpleform/"],
-        {
-          cwd: path.resolve(flags.output)
-        }
-      );
-    } catch(e) {
-      this.error('pos-cli was not found.\nInstall: npm i -g @platformos/pos-cli');
-    }
+    const init = spawn(
+      "npx", // I dont know if npx is the best idea. Lets see.
+      ["pos-cli", "init", "--url=https://github.com/mdyd-dev/simpleform/"],
+      {
+        cwd: path.resolve(output)
+      }
+    );
 
-    let files = await glob(`${flags.directory}/**/*.html`);
+    init.on("close", function(code) {
+      if (code === 0) {
+        console.log("Simple form module initialized.");
+      } else {
+        console.error(`[${code}] Something went wrong.`);
+      }
+    });
+
+    let files = await glob(`${flags.input}/**/*.html`);
 
     files
       .map(getHtml)
       .map(replaceActions)
-      .map(({ filePath, html }) => saveFile({ filePath, html, input, output }));
+      .map(({ filePath, html }) => saveFile({ filePath, html, input: flags.input, output }));
   }
 }
 
@@ -46,9 +51,7 @@ Simpleform.flags = {
   }),
   output: flags.string({
     char: "o",
-    description: "Output directory",
-    required: true,
-    default: "."
+    description: "Ouput directory"
   })
 };
 
