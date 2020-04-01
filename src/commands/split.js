@@ -11,26 +11,26 @@ const ASSETS_EXT =
 
 const notDynamic = file => !/(\.(aspx|cgi|php|jsp|jspx|cfm))/.test(file);
 
-const copyPages = async ({ input, output }) => {
+const copyPages = async (input, output) => {
   const htmlFiles = await glob(`${input}/**/*.html`);
   const files = htmlFiles.filter(notDynamic);
 
-  files.forEach(async inputFile => {
+  files.forEach(async filePath => {
     const outputDir = `${output}/app/views/pages/`;
-    const outputFile = inputFile.replace(input, outputDir);
+    const outputFile = filePath.replace(input, outputDir);
 
-    await mv(inputFile, outputFile, { copy: true });
+    await mv(filePath, outputFile, { copy: true });
   });
 };
 
-const copyAssets = async ({ input, output }) => {
+const copyAssets = async (input, output) => {
   const files = await glob(`${input}/**/*.{${ASSETS_EXT}}`);
 
-  files.forEach(async inputFile => {
+  files.forEach(async filePath => {
     const outputDir = `${output}/app/assets`;
-    const outputFile = inputFile.replace(input, outputDir);
+    const outputFile = filePath.replace(input, outputDir);
 
-    await mv(inputFile, outputFile, { copy: true });
+    await mv(filePath, outputFile, { copy: true });
   });
 };
 
@@ -39,9 +39,8 @@ class SplitCommand extends Command {
     const { flags } = this.parse(SplitCommand);
 
     renameHtmToHtml(flags.input); // Rename .htm -> .html
-
-    copyPages(flags);
-    copyAssets(flags);
+    copyPages(flags.input, flags.output);
+    copyAssets(flags.input, flags.output);
   }
 }
 

@@ -14,8 +14,8 @@ const assetify = url => {
   return `{{ '${assetPath}' | asset_url }}`;
 };
 
-module.exports = ({ filePath, html }) => {
-  const dom = new JSDOM(html);
+module.exports = ({ filePath, fileContent }) => {
+  const dom = new JSDOM(fileContent);
 
   const img = dom.window.document.querySelectorAll("img");
   const css = dom.window.document.querySelectorAll('link[rel="stylesheet"]');
@@ -44,6 +44,6 @@ module.exports = ({ filePath, html }) => {
 
   return {
     filePath,
-    html: dom.serialize()
+    fileContent: dom.serialize()
   };
 };

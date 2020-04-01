@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const replaceUrls = require('../src/lib/replace-urls');
 const input = fs.readFileSync('./test/fixtures/test.html').toString();
-const { html } = replaceUrls({ filePath: '', html: input });
+const { fileContent } = replaceUrls({ filePath: '', fileContent: input });
 
 describe('Link CSS', () => {
   const expected = [
@@ -15,7 +15,7 @@ describe('Link CSS', () => {
   ];
 
   expected.forEach(res => {
-    const actual = html.indexOf(res) > 0;
+    const actual = fileContent.indexOf(res) > 0;
 
     test(res, () => {
       expect(actual).toBe(true);
@@ -33,7 +33,7 @@ describe('External JS', () => {
   ];
 
   expected.forEach(res => {
-    const actual = html.indexOf(res) > 0;
+    const actual = fileContent.indexOf(res) > 0;
 
     test(res, () => {
       expect(actual).toBe(true);
@@ -51,7 +51,7 @@ describe('Images', () => {
   ];
 
   expected.forEach(res => {
-    const actual = html.indexOf(res) > 0;
+    const actual = fileContent.indexOf(res) > 0;
 
     test(res, () => {
       expect(actual).toBe(true);

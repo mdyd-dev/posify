@@ -1,7 +1,10 @@
 const fs = require('fs');
 
-module.exports = ({ filePath, html, input, output }) => {
-  const outputPath = filePath.replace(input, output);
-  fs.writeFileSync(outputPath, html);
-  return { filePath, html }
+module.exports = ({ filePath, fileContent, input, output }) => {
+  let outputPath = filePath;
+  if (input && output) {
+    outputPath = filePath.replace(input, output);
+  }
+  fs.writeFileSync(outputPath, fileContent);
+  return { filePath, fileContent }
 };

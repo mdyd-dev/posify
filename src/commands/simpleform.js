@@ -3,14 +3,13 @@ const { spawn } = require("child_process");
 const path = require("path");
 const glob = require("globby");
 
-const getHtml = require("../lib/get-html");
+const getFile = require("../lib/get-file");
 const replaceActions = require("../lib/replace-actions");
 const saveFile = require("../lib/save-file");
 
 class Simpleform extends Command {
   async run() {
     const { flags } = this.parse(Simpleform);
-    const output = flags.output || flags.input;
 
     const init = spawn(
       "npx", // I dont know if npx is the best idea. Lets see.
@@ -31,9 +30,9 @@ class Simpleform extends Command {
     let files = await glob(`${flags.input}/**/*.html`);
 
     files
-      .map(getHtml)
+      .map(getFile)
       .map(replaceActions)
-      .map(({ filePath, html }) => saveFile({ filePath, html, input: flags.input, output }));
+      .map(saveFile);
   }
 }
 

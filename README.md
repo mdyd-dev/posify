@@ -27,6 +27,8 @@ USAGE
 * [`posify assetify`](#posify-assetify)
 * [`posify download`](#posify-download)
 * [`posify help [COMMAND]`](#posify-help-command)
+* [`posify imageoptim`](#posify-imageoptim)
+* [`posify minify`](#posify-minify)
 * [`posify simpleform`](#posify-simpleform)
 * [`posify split`](#posify-split)
 
@@ -40,7 +42,7 @@ USAGE
 
 OPTIONS
   -i, --input=input    (required) [default: .] Input directory
-  -o, --output=output  (required) [default: .] Output directory
+  -o, --output=output  Output directory
 
 DESCRIPTION
   Find and replace asset urls in html files
@@ -84,6 +86,41 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
+## `posify imageoptim`
+
+Describe the command here
+
+```
+USAGE
+  $ posify imageoptim
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/imageoptim.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/imageoptim.js)_
+
+## `posify minify`
+
+Minify JS (terser) and CSS (css-clean)
+
+```
+USAGE
+  $ posify minify
+
+OPTIONS
+  -i, --input=input  (required) [default: .] Input directory
+
+DESCRIPTION
+  Makes your JS and CSS files smaller and more production ready.
+```
+
+_See code: [src/commands/minify.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/minify.js)_
+
 ## `posify simpleform`
 
 Converts forms to simple form
@@ -94,7 +131,7 @@ USAGE
 
 OPTIONS
   -i, --input=input    (required) [default: .] Input directory
-  -o, --output=output  (required) [default: .] Output directory
+  -o, --output=output  Ouput directory
 
 DESCRIPTION
   Downloads simpleform module
@@ -112,8 +149,8 @@ USAGE
   $ posify split
 
 OPTIONS
-  -i, --input=input    (required) [default: .] Input directory
-  -o, --output=output  (required) [default: .] Output directory
+  -i, --input=input    (required) Input directory
+  -o, --output=output  (required) Output directory
 
 DESCRIPTION
   Puts assets into assets, views into views.

@@ -1,8 +1,8 @@
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 
-module.exports = ({ filePath, html }) => {
-  const dom = new JSDOM(html);
+module.exports = ({ filePath, fileContent }) => {
+  const dom = new JSDOM(fileContent);
 
   const forms = dom.window.document.querySelectorAll('form[action]');
 
@@ -12,6 +12,6 @@ module.exports = ({ filePath, html }) => {
 
   return {
     filePath,
-    html: dom.serialize()
+    fileContent: dom.serialize()
   };
 };

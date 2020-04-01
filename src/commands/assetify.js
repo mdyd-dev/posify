@@ -2,7 +2,7 @@ const { Command, flags } = require("@oclif/command");
 
 const glob = require("globby");
 
-const getHtml = require("../lib/get-html");
+const getFile = require("../lib/get-file");
 const replaceUrls = require("../lib/replace-urls");
 const saveFile = require("../lib/save-file");
 
@@ -11,15 +11,12 @@ const ext = "html";
 class AssetifyCommand extends Command {
   async run() {
     const { flags } = this.parse(AssetifyCommand);
-    const output = flags.output || flags.input;
     let files = await glob(`${flags.input}/**/*.html`);
 
     files
-      .map(getHtml)
+      .map(getFile)
       .map(replaceUrls)
-      .map(({ filePath, html }) =>
-        saveFile({ filePath, html, input: flags.input, output, ext })
-      );
+      .map(saveFile);
   }
 }
 
