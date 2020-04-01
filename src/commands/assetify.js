@@ -30,10 +30,6 @@ AssetifyCommand.flags = {
     description: "Input directory",
     required: true,
     default: "."
-  }),
-  output: flags.string({
-    char: "o",
-    description: "Output directory"
   })
 };
 

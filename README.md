@@ -27,7 +27,7 @@ USAGE
 * [`posify assetify`](#posify-assetify)
 * [`posify download`](#posify-download)
 * [`posify help [COMMAND]`](#posify-help-command)
-* [`posify imageoptim`](#posify-imageoptim)
+* [`posify imagemin`](#posify-imagemin)
 * [`posify minify`](#posify-minify)
 * [`posify simpleform`](#posify-simpleform)
 * [`posify split`](#posify-split)
@@ -41,8 +41,7 @@ USAGE
   $ posify assetify
 
 OPTIONS
-  -i, --input=input    (required) [default: .] Input directory
-  -o, --output=output  Output directory
+  -i, --input=input  (required) [default: .] Input directory
 
 DESCRIPTION
   Find and replace asset urls in html files
@@ -86,23 +85,22 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
-## `posify imageoptim`
+## `posify imagemin`
 
-Describe the command here
+Optimize images to make them smaller
 
 ```
 USAGE
-  $ posify imageoptim
+  $ posify imagemin
 
 OPTIONS
-  -n, --name=name  name to print
+  -i, --input=input  (required) [default: .] Input directory
 
 DESCRIPTION
-  ...
-  Extra documentation goes here
+  Carefully optimize images using jpeg-recompress and pngquant
 ```
 
-_See code: [src/commands/imageoptim.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/imageoptim.js)_
+_See code: [src/commands/imagemin.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/imagemin.js)_
 
 ## `posify minify`
 
@@ -149,8 +147,7 @@ USAGE
   $ posify split
 
 OPTIONS
-  -i, --input=input    (required) Input directory
-  -o, --output=output  (required) Output directory
+  -i, --input=input  (required) Input directory
 
 DESCRIPTION
   Puts assets into assets, views into views.
