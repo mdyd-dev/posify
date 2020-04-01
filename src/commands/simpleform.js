@@ -47,10 +47,6 @@ Simpleform.flags = {
     description: "Input directory",
     required: true,
     default: "."
-  }),
-  output: flags.string({
-    char: "o",
-    description: "Ouput directory"
   })
 };
 

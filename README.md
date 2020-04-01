@@ -128,8 +128,7 @@ USAGE
   $ posify simpleform
 
 OPTIONS
-  -i, --input=input    (required) [default: .] Input directory
-  -o, --output=output  Ouput directory
+  -i, --input=input  (required) [default: .] Input directory
 
 DESCRIPTION
   Downloads simpleform module
