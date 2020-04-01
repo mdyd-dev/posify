@@ -1,35 +1,56 @@
 const { Command, flags } = require("@oclif/command");
 const { spawn } = require("child_process");
 
-const download = ({ url }) =>
-  spawn("wget", [
+const ora = require('ora');
+
+const renameHtmToHtml = require('../lib/renameHtmToHtml');
+
+const download = ({ url, output }) => {
+  const params = [
     url,
     "--convert-links",
+    // "--backup-converted",
     "--adjust-extension",
     "--page-requisites",
     "--no-parent",
-    "--mirror"
-  ]);
+    "--mirror",
+    // "--wait=1",
+    // "--tries=3",
+    // "--waitretry=3"
+  ];
+
+  console.log(`Running wget with params: ${params.join(' ')}`)
+
+  return spawn("wget", params);
+}
 
 class DownloadCommand extends Command {
   async run() {
     const cli = this;
     const { flags } = this.parse(DownloadCommand);
+    const domain = flags.url.split('://')[1];
 
     const wget = download(flags);
 
+    const spinner = ora(`Downloading ${flags.url}`);
+
     wget.stderr.on("data", chunk => {
-      if (/.*Saving to:.*/.test(chunk)) {
+      spinner.start();
+      if (flags.debug) {
         process.stdout.write(chunk.toString());
       }
     });
 
-    wget.on("close", code => {
-      if (code !== 0) {
-        cli.error("Something went wrong.");
+    wget.on("close", async code => {
+      if (code !== 0 && code !== 8) {
+        // I have no idea why 8 is spitting out even if everything is ok
+        spinner.fail(`[Code: ${code}] Something went wrong.`);
+        process.exit(1);
       }
 
-      cli.log("Done.");
+      renameHtmToHtml(domain); // Rename .htm -> .html
+
+      spinner.succeed("Website downloaded.");
     });
   }
 }
@@ -44,6 +65,10 @@ DownloadCommand.flags = {
     char: "u",
     description: "Address of webpage to download",
     required: true
+  }),
+  debug: flags.boolean({
+    description: "Show wget progress",
+    default: false
   })
 };
 

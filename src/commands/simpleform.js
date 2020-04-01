@@ -1,13 +1,27 @@
 const { Command, flags } = require("@oclif/command");
-const glob = require('globby');
+const { spawn } = require("child_process");
+const path = require("path");
+const glob = require("globby");
 
-const getHtml = require('../lib/get-html');
-const replaceActions = require('../lib/replace-actions');
-const saveFile = require('../lib/save-file');
+const getHtml = require("../lib/get-html");
+const replaceActions = require("../lib/replace-actions");
+const saveFile = require("../lib/save-file");
 
 class Simpleform extends Command {
   async run() {
     const { flags } = this.parse(Simpleform);
+
+    try {
+      spawn(
+        "pos-cli",
+        ["init", "--url https://github.com/mdyd-dev/simpleform/"],
+        {
+          cwd: path.resolve(flags.output)
+        }
+      );
+    } catch(e) {
+      this.error('pos-cli was not found.\nInstall: npm i -g @platformos/pos-cli');
+    }
 
     let files = await glob(`${flags.directory}/**/*.html`);
 

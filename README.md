@@ -58,6 +58,7 @@ USAGE
 
 OPTIONS
   -u, --url=url  (required) Address of webpage to download
+  --debug        Show wget progress
 
 DESCRIPTION
   This is the first step in covert process.

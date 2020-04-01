@@ -15,7 +15,8 @@
     "@oclif/plugin-warn-if-update-available": "^1.7.0",
     "globby": "^10",
     "jsdom": "^16.2.2",
-    "mvdir": "^1.0.17"
+    "mvdir": "^1.0.17",
+    "ora": "^4.0.3"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",

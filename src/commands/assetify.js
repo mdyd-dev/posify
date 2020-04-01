@@ -6,6 +6,8 @@ const getHtml = require("../lib/get-html");
 const replaceUrls = require("../lib/replace-urls");
 const saveFile = require("../lib/save-file");
 
+const ext = "html";
+
 class AssetifyCommand extends Command {
   async run() {
     const { flags } = this.parse(AssetifyCommand);
@@ -15,7 +17,9 @@ class AssetifyCommand extends Command {
     files
       .map(getHtml)
       .map(replaceUrls)
-      .map(({ filePath, html }) => saveFile({ filePath, html, input, output }));
+      .map(({ filePath, html }) =>
+        saveFile({ filePath, html, input: flags.input, output: flags.output, ext })
+      );
   }
 }
 

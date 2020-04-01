@@ -6,8 +6,11 @@ const mv = require("mvdir");
 const ASSETS_EXT =
   "css,csv,doc,docx,gif,ico,jpeg,jpg,js,mp3,mp4,ogg,otf,pdf,png,ppt,svg,ttf,eot,txt,webm,webp,woff,woff2,xls,xlsx,zip";
 
+const notDynamic = file => !/(\.(aspx|cgi|php|jsp|jspx|cfm))/.test(file);
+
 const copyPages = async ({ input, output }) => {
-  const files = await glob(`${input}/**/*.html`);
+  const htmlFiles = await glob(`${input}/**/*.html`);
+  const files = htmlFiles.filter(notDynamic);
 
   files.forEach(async inputFile => {
     const outputDir = `${output}/app/views/pages/`;
