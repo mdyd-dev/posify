@@ -40,8 +40,8 @@ class DownloadCommand extends Command {
   }
 }
 
-DownloadCommand.description = `Download webpage using wget.
-It will download resources and cleanup file names.
+DownloadCommand.description = `Download a complete webpage with assets
+Downloads resources needed to display a webpage.
 `;
 
 DownloadCommand.flags = {

@@ -3,7 +3,7 @@ const { Command, flags } = require("@oclif/command");
 const glob = require("globby");
 const mv = require("mvdir");
 
-const renameHtmToHtml = require('../lib/renameHtmToHtml');
+const renameHtmToHtml = require('../../lib/renameHtmToHtml');
 
 const ASSETS_EXT =
   "css,csv,doc,docx,gif,ico,jpeg,jpg,js,mp3,mp4,ogg,otf,pdf,png,ppt,svg,ttf,eot,txt,webm,webp,woff,woff2,xls,xlsx,zip";
@@ -33,21 +33,21 @@ const copyAssets = async (input) => {
   });
 };
 
-class SplitCommand extends Command {
+class DirectoriesCommand extends Command {
   async run() {
-    const { flags } = this.parse(SplitCommand);
+    const { flags } = this.parse(DirectoriesCommand);
 
-    renameHtmToHtml(flags.input); // Rename .htm -> .html
+    renameHtmToHtml(flags.input); // Rename .htm -> .html. Move to download plugin
     copyPages(flags.input);
     copyAssets(flags.input);
   }
 }
 
-SplitCommand.description = `Split downloaded page into pos directory structure
-Puts assets into assets, views into views.
+DirectoriesCommand.description = `Split downloaded page into pos directory structure
+Puts assets into app/assets/, pages into app/views/pages.
 `;
 
-SplitCommand.flags = {
+DirectoriesCommand.flags = {
   input: flags.string({
     char: "i",
     description: "Input directory",
@@ -55,4 +55,4 @@ SplitCommand.flags = {
   })
 };
 
-module.exports = SplitCommand;
+module.exports = DirectoriesCommand;

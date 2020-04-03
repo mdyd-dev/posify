@@ -24,21 +24,22 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`posify assetify`](#posify-assetify)
+* [`posify convert:assets`](#posify-convertassets)
+* [`posify convert:directories`](#posify-convertdirectories)
+* [`posify convert:forms`](#posify-convertforms)
 * [`posify download`](#posify-download)
 * [`posify help [COMMAND]`](#posify-help-command)
-* [`posify imagemin`](#posify-imagemin)
-* [`posify minify`](#posify-minify)
-* [`posify simpleform`](#posify-simpleform)
-* [`posify split`](#posify-split)
+* [`posify optimize:css`](#posify-optimizecss)
+* [`posify optimize:images`](#posify-optimizeimages)
+* [`posify optimize:js`](#posify-optimizejs)
 
-## `posify assetify`
+## `posify convert:assets`
 
 Convert relative assets paths to asset_url
 
 ```
 USAGE
-  $ posify assetify
+  $ posify convert:assets
 
 OPTIONS
   -i, --input=input  (required) [default: .] Input directory
@@ -47,23 +48,57 @@ DESCRIPTION
   Find and replace asset urls in html files
 ```
 
-_See code: [src/commands/assetify.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/assetify.js)_
+_See code: [src/commands/convert/assets.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/convert/assets.js)_
+
+## `posify convert:directories`
+
+Split downloaded page into pos directory structure
+
+```
+USAGE
+  $ posify convert:directories
+
+OPTIONS
+  -i, --input=input  (required) Input directory
+
+DESCRIPTION
+  Puts assets into app/assets/, pages into app/views/pages.
+```
+
+_See code: [src/commands/convert/directories.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/convert/directories.js)_
+
+## `posify convert:forms`
+
+Converts forms to simple form
+
+```
+USAGE
+  $ posify convert:forms
+
+OPTIONS
+  -i, --input=input  (required) [default: .] Input directory
+
+DESCRIPTION
+  Downloads simpleform module
+  Replaces action attribute to use simpleform module that sends email to the app owner
+```
+
+_See code: [src/commands/convert/forms.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/convert/forms.js)_
 
 ## `posify download`
 
-Download webpage using wget.
+Download a complete webpage with assets
 
 ```
 USAGE
   $ posify download
 
 OPTIONS
-  -u, --url=url  (required) Address of webpage to download
-  --debug        Show wget progress
+  -c, --concurrency=concurrency  [default: 3] Max concurrent connections
+  -u, --url=url                  (required) Address of webpage to download
 
 DESCRIPTION
-  This is the first step in covert process.
-  It will download files and not manipulate them.
+  Downloads resources needed to display a webpage.
 ```
 
 _See code: [src/commands/download.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/download.js)_
@@ -85,13 +120,30 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
-## `posify imagemin`
+## `posify optimize:css`
+
+Minify CSS using css-clean
+
+```
+USAGE
+  $ posify optimize:css
+
+OPTIONS
+  -i, --input=input  (required) [default: .] Input directory
+
+DESCRIPTION
+  Makes your CSS files smaller and production ready.
+```
+
+_See code: [src/commands/optimize/css.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/optimize/css.js)_
+
+## `posify optimize:images`
 
 Optimize images to make them smaller
 
 ```
 USAGE
-  $ posify imagemin
+  $ posify optimize:images
 
 OPTIONS
   -i, --input=input  (required) [default: .] Input directory
@@ -100,57 +152,22 @@ DESCRIPTION
   Carefully optimize images using jpeg-recompress and pngquant
 ```
 
-_See code: [src/commands/imagemin.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/imagemin.js)_
+_See code: [src/commands/optimize/images.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/optimize/images.js)_
 
-## `posify minify`
+## `posify optimize:js`
 
-Minify JS (terser) and CSS (css-clean)
+Minify JS using Terser
 
 ```
 USAGE
-  $ posify minify
+  $ posify optimize:js
 
 OPTIONS
   -i, --input=input  (required) [default: .] Input directory
 
 DESCRIPTION
-  Makes your JS and CSS files smaller and more production ready.
+  Makes your JS files smaller and production ready.
 ```
 
-_See code: [src/commands/minify.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/minify.js)_
-
-## `posify simpleform`
-
-Converts forms to simple form
-
-```
-USAGE
-  $ posify simpleform
-
-OPTIONS
-  -i, --input=input  (required) [default: .] Input directory
-
-DESCRIPTION
-  Downloads simpleform module
-  Replaces action attribute to use simpleform module that sends email to the app owner
-```
-
-_See code: [src/commands/simpleform.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/simpleform.js)_
-
-## `posify split`
-
-Split downloaded page into pos directory structure
-
-```
-USAGE
-  $ posify split
-
-OPTIONS
-  -i, --input=input  (required) Input directory
-
-DESCRIPTION
-  Puts assets into assets, views into views.
-```
-
-_See code: [src/commands/split.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/split.js)_
+_See code: [src/commands/optimize/js.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/optimize/js.js)_
 <!-- commandsstop -->

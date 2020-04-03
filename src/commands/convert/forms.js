@@ -3,9 +3,9 @@ const { spawn } = require("child_process");
 const path = require("path");
 const glob = require("globby");
 
-const getFile = require("../lib/get-file");
-const replaceActions = require("../lib/replace-actions");
-const saveFile = require("../lib/save-file");
+const getFile = require("../../lib/get-file");
+const replaceActions = require("../../lib/replace-actions");
+const saveFile = require("../../lib/save-file");
 
 class Forms extends Command {
   async run() {
