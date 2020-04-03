@@ -1,7 +1,5 @@
 const { Command, flags } = require("@oclif/command");
-const { spawn } = require("child_process");
 const glob = require("globby");
-const fs = require('fs');
 const CleanCSS = require('clean-css');
 const ora = require('ora');
 
