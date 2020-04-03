@@ -1,17 +1,18 @@
 const { Command, flags } = require("@oclif/command");
 const { spawn } = require("child_process");
+const scrape = require('website-scraper');
 
 const ora = require('ora');
 
-const download = ({ url, output }) => {
+const download = ({ url, wait }) => {
   const params = [
     url,
+    `--wait=${wait}`,
     "--convert-links",
     "--adjust-extension",
     "--page-requisites",
     "--no-parent",
     "--mirror",
-    // "--wait=1",
     "--tries=3",
     "--waitretry=3"
   ];
@@ -60,6 +61,11 @@ DownloadCommand.flags = {
     char: "u",
     description: "Address of webpage to download",
     required: true
+  }),
+  wait: flags.integer({
+    char: "w",
+    description: "How main seconds to wait between HTTP requests",
+    default: 0
   }),
   debug: flags.boolean({
     description: "Show wget progress",

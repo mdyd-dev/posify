@@ -7,9 +7,9 @@ const getFile = require("../lib/get-file");
 const replaceActions = require("../lib/replace-actions");
 const saveFile = require("../lib/save-file");
 
-class Simpleform extends Command {
+class Forms extends Command {
   async run() {
-    const { flags } = this.parse(Simpleform);
+    const { flags } = this.parse(Forms);
 
     const init = spawn(
       "npx", // I dont know if npx is the best idea. Lets see.
@@ -36,12 +36,12 @@ class Simpleform extends Command {
   }
 }
 
-Simpleform.description = `Converts forms to simple form
+Forms.description = `Converts forms to simple form
 Downloads simpleform module
 Replaces action attribute to use simpleform module that sends email to the app owner
 `;
 
-Simpleform.flags = {
+Forms.flags = {
   input: flags.string({
     char: "i",
     description: "Input directory",
@@ -50,4 +50,4 @@ Simpleform.flags = {
   })
 };
 
-module.exports = Simpleform;
+module.exports = Forms;

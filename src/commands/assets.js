@@ -8,9 +8,9 @@ const saveFile = require("../lib/save-file");
 
 const ext = "html";
 
-class AssetifyCommand extends Command {
+class AssetsCommand extends Command {
   async run() {
-    const { flags } = this.parse(AssetifyCommand);
+    const { flags } = this.parse(AssetsCommand);
     let files = await glob(`${flags.input}/**/*.html`);
 
     files
@@ -20,11 +20,11 @@ class AssetifyCommand extends Command {
   }
 }
 
-AssetifyCommand.description = `Convert relative assets paths to asset_url
+AssetsCommand.description = `Convert relative assets paths to asset_url
 Find and replace asset urls in html files
 `;
 
-AssetifyCommand.flags = {
+AssetsCommand.flags = {
   input: flags.string({
     char: "i",
     description: "Input directory",
@@ -33,4 +33,4 @@ AssetifyCommand.flags = {
   })
 };
 
-module.exports = AssetifyCommand;
+module.exports = AssetsCommand;

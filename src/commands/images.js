@@ -5,9 +5,9 @@ const imagemin = require("imagemin");
 const imageminJpegrecompress = require("imagemin-jpeg-recompress");
 const imageminPngquant = require("imagemin-pngquant");
 
-class ImageminCommand extends Command {
+class ImagesCommand extends Command {
   async run() {
-    const { flags } = this.parse(ImageminCommand);
+    const { flags } = this.parse(ImagesCommand);
 
     const spinner = ora(`Optimizing images...`);
 
@@ -29,11 +29,11 @@ class ImageminCommand extends Command {
   }
 }
 
-ImageminCommand.description = `Optimize images to make them smaller
+ImagesCommand.description = `Optimize images to make them smaller
 Carefully optimize images using jpeg-recompress and pngquant
 `;
 
-ImageminCommand.flags = {
+ImagesCommand.flags = {
   input: flags.string({
     char: "i",
     description: "Input directory",
@@ -42,4 +42,4 @@ ImageminCommand.flags = {
   })
 };
 
-module.exports = ImageminCommand;
+module.exports = ImagesCommand;
