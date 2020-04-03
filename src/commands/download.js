@@ -1,59 +1,47 @@
 const { Command, flags } = require("@oclif/command");
-const { spawn } = require("child_process");
-const scrape = require('website-scraper');
+const URL = require('url');
+const scrape = require("website-scraper");
+const SaveToExistingDirectoryPlugin = require("website-scraper-existing-directory");
 
-const ora = require('ora');
+const ora = require("ora");
 
-const download = ({ url, wait }) => {
-  const params = [
-    url,
-    `--wait=${wait}`,
-    "--convert-links",
-    "--adjust-extension",
-    "--page-requisites",
-    "--no-parent",
-    "--mirror",
-    "--tries=3",
-    "--waitretry=3"
-  ];
+const download = ({ url, concurrency }) => {
+  const domain = URL.parse(url).host;
+  const rootDomain = domain.split('.').reverse().splice(0,2).reverse().join('.');
 
-  console.log(`Running wget with params: ${params.join(' ')}`)
-
-  return spawn("wget", params);
-}
+  return scrape({
+    urls: [url],
+    urlFilter: currentUrl => {
+      return currentUrl.includes(rootDomain);
+    },
+    recursive: true,
+    requestConcurrency: concurrency,
+    maxRecursiveDepth: 3,
+    filenameGenerator: "bySiteStructure",
+    directory: '.',
+    plugins: [new SaveToExistingDirectoryPlugin()]
+  });
+};
 
 class DownloadCommand extends Command {
   async run() {
     const cli = this;
     const { flags } = this.parse(DownloadCommand);
-    const domain = flags.url.split('://')[1];
 
-    const wget = download(flags);
+    const spinner = ora(`Downloading ${flags.url}`).start();
 
-    const spinner = ora(`Downloading ${flags.url}`);
-
-    wget.stderr.on("data", chunk => {
-      spinner.start();
-      if (flags.debug) {
-        process.stdout.write(chunk.toString());
-      }
-    });
-
-    wget.on("close", async code => {
-      if (code !== 0 && code !== 8) {
-        // I have no idea why 8 is spitting out even if everything is ok
-        spinner.fail(`[Code: ${code}] Something went wrong.`);
-        process.exit(1);
-      }
-
-      spinner.succeed("Website downloaded.");
-    });
+    download(flags)
+      .then(() => {
+        spinner.succeed('Done');
+      })
+      .catch(error => {
+        spinner.fail(`Error: ${error}`);
+      });
   }
 }
 
 DownloadCommand.description = `Download webpage using wget.
-This is the first step in covert process.
-It will download files and not manipulate them.
+It will download resources and cleanup file names.
 `;
 
 DownloadCommand.flags = {
@@ -62,14 +50,10 @@ DownloadCommand.flags = {
     description: "Address of webpage to download",
     required: true
   }),
-  wait: flags.integer({
-    char: "w",
-    description: "How main seconds to wait between HTTP requests",
-    default: 0
-  }),
-  debug: flags.boolean({
-    description: "Show wget progress",
-    default: false
+  concurrency: flags.integer({
+    char: "c",
+    description: "Max concurrent connections",
+    default: 3
   })
 };
 
