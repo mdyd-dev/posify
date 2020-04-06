@@ -21,6 +21,7 @@
     "jsdom": "^16.2.2",
     "mvdir": "^1.0.17",
     "ora": "^4.0.3",
+    "rootextract.js": "^1.0.5",
     "terser": "^4.6.10",
     "website-scraper": "^4.2.0",
     "website-scraper-existing-directory": "^0.1.0"
