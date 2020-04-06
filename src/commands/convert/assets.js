@@ -5,8 +5,6 @@ const getFile = require("../../lib/get-file");
 const replaceUrls = require("../../lib/replace-urls");
 const saveFile = require("../../lib/save-file");
 
-const ext = "html";
-
 class AssetsCommand extends Command {
   async run() {
     const { flags } = this.parse(AssetsCommand);

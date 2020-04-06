@@ -52,4 +52,4 @@ DirectoriesCommand.flags = {
   })
 };
 
-module.exports = DirectoriesCommand;
+// module.exports = DirectoriesCommand;

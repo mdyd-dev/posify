@@ -25,7 +25,6 @@ USAGE
 # Commands
 <!-- commands -->
 * [`posify convert:assets`](#posify-convertassets)
-* [`posify convert:directories`](#posify-convertdirectories)
 * [`posify convert:forms`](#posify-convertforms)
 * [`posify download`](#posify-download)
 * [`posify help [COMMAND]`](#posify-help-command)
@@ -49,23 +48,6 @@ DESCRIPTION
 ```
 
 _See code: [src/commands/convert/assets.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/convert/assets.js)_
-
-## `posify convert:directories`
-
-Split downloaded page into pos directory structure
-
-```
-USAGE
-  $ posify convert:directories
-
-OPTIONS
-  -i, --input=input  (required) Input directory
-
-DESCRIPTION
-  Puts assets into app/assets/, pages into app/views/pages.
-```
-
-_See code: [src/commands/convert/directories.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/convert/directories.js)_
 
 ## `posify convert:forms`
 

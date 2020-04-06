@@ -9,14 +9,12 @@ class HtmToHtml {
       dir = options.directory;
     });
 
-    registerAction('afterFinish', async () => {
+    registerAction("afterFinish", async () => {
       const files = await globby(`${dir}/**/*.htm`);
-      
-      if (!files) {
-        return;
-      }
 
-      await files.map(filePath => {
+      if (!files) return;
+
+      await files.map((filePath) => {
         fs.renameSync(filePath, `${filePath}l`);
       });
     });

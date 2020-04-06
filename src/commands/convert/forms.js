@@ -7,32 +7,40 @@ const getFile = require("../../lib/get-file");
 const replaceActions = require("../../lib/replace-actions");
 const saveFile = require("../../lib/save-file");
 
+const getSimpleForm = async flags => {
+  const init = spawn(
+    "npx",
+    ["degit", "mdyd-dev/simpleform"],
+    {
+      cwd: path.resolve(flags.input)
+    }
+  );
+
+  init.on("close", function(code) {
+    if (code === 0) {
+      console.log("Simple form module initialized.");
+    } else {
+      console.error(`[${code}] Something went wrong.`);
+    }
+  });
+}
+
+const updateActions = async flags => {
+  let files = await glob(`${flags.input}/**/*.html`);
+
+  files
+    .map(getFile)
+    .map(replaceActions)
+    .map(saveFile);
+}
+
+
 class Forms extends Command {
   async run() {
     const { flags } = this.parse(Forms);
 
-    const init = spawn(
-      "npx", // I dont know if npx is the best idea. Lets see.
-      ["pos-cli", "init", "--url=https://github.com/mdyd-dev/simpleform/"],
-      {
-        cwd: path.resolve(output)
-      }
-    );
-
-    init.on("close", function(code) {
-      if (code === 0) {
-        console.log("Simple form module initialized.");
-      } else {
-        console.error(`[${code}] Something went wrong.`);
-      }
-    });
-
-    let files = await glob(`${flags.input}/**/*.html`);
-
-    files
-      .map(getFile)
-      .map(replaceActions)
-      .map(saveFile);
+    getSimpleForm(flags);
+    updateActions(flags);
   }
 }
 
