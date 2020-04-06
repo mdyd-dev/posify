@@ -28,7 +28,7 @@ const isEligible = url => {
 
 const getAssetPath = (url) => {
   return url
-    .split(/\d+\/assets\//) // ../../../assets/instances/106/assets/images/favicon.ico -> images/favicon.ico
+    .split(/\d*\/assets\//) // ../../../assets/instances/106/assets/images/favicon.ico -> images/favicon.ico
     .pop()
 };
 

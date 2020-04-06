@@ -1,3 +1,4 @@
+
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
@@ -6,6 +7,7 @@ const updateCSS = require('./css');
 const updateJS = require('./js');
 const updateA = require('./a');
 const updateForm = require('./form');
+const updateFavicon = require('./favicon');
 
 module.exports = ({ filePath, fileContent }) => {
   const dom = new JSDOM(fileContent);
@@ -15,6 +17,7 @@ module.exports = ({ filePath, fileContent }) => {
   updateJS(dom.window.document);
   updateA(dom.window.document);
   updateForm(dom.window.document);
+  updateFavicon(dom.window.document);
 
   return {
     filePath,

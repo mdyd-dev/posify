@@ -21,7 +21,7 @@ const download = ({ url, concurrency }) => {
     recursive: true,
     requestConcurrency: concurrency,
     maxRecursiveDepth: 3,
-    directory: "pos4",
+    directory: "pos",
     plugins: [
       new SaveToExistingDirectoryPlugin(),
       new HtmToHtml(),

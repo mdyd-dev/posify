@@ -9,6 +9,9 @@ class HtmToHtml {
       dir = options.directory;
     });
 
+    // This is triggered when all is done.
+    // Which means if user cancels mid-process it will not fire (rename files).
+    // Keep that in mind when testing ;)
     registerAction("afterFinish", async () => {
       const files = await globby(`${dir}/**/*.htm`);
 
