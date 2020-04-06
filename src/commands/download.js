@@ -2,40 +2,31 @@ const { Command, flags } = require("@oclif/command");
 const URL = require("url");
 const scrape = require("website-scraper");
 const SaveToExistingDirectoryPlugin = require("website-scraper-existing-directory");
-const htmToHtml = require("../lib/htmToHtml");
+const HtmToHtml = require("../lib/scraper-plugins/htmToHtml");
+const GenerateFilename = require("../lib/scraper-plugins/generate-filename");
 
 const ora = require("ora");
 
 const download = ({ url, concurrency }) => {
   const domain = URL.parse(url).host;
-  const rootDomain = domain
-    .split(".")
-    .reverse()
-    .splice(0, 2)
-    .reverse()
-    .join(".");
+  var rootDomain = domain.split(".").reverse().splice(0, 2).reverse().join(".");
 
   return scrape({
     urls: [url],
     urlFilter: (currentUrl) => {
-      return currentUrl.includes(rootDomain);
+      const domain = URL.parse(currentUrl).host;
+      const re = new RegExp(`${rootDomain}$`);
+      return re.test(domain);
     },
     recursive: true,
     requestConcurrency: concurrency,
     maxRecursiveDepth: 3,
-    // filenameGenerator: "bySiteStructure",
     directory: "pos4",
-    subdirectories: [
-      { directory: "app/assets/img", extensions: [".jpg", ".jpeg", ".gif", ".png", ".svg", ".ico", ".webp"] },
-      { directory: "app/assets/js", extensions: [".js"] },
-      { directory: "app/assets/css", extensions: [".css"] },
-      { directory: "app/assets/fonts", extensions: [".otf", ".ttf", ".woff", ".woff2"] },
-      { directory: "app/assets/docs", extensions: [".pdf", ".zip", ".doc", ".docx", ".txt", ".csv", ".ppt", ".pptx", ".xls", ".xlsx"] },
-      { directory: "app/assets/audio", extensions: [".mp3", ".ogg"] },
-      { directory: "app/assets/video", extensions: [".mp4", ".webm"] },
-      { directory: "app/views/pages", extensions: [".html"] }
+    plugins: [
+      new SaveToExistingDirectoryPlugin(),
+      new HtmToHtml(),
+      new GenerateFilename(),
     ],
-    plugins: [new SaveToExistingDirectoryPlugin(), new htmToHtml()],
   });
 };
 

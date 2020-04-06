@@ -1,13 +1,13 @@
 const { Command, flags } = require("@oclif/command");
 const glob = require("globby");
 
-const getFile = require("../../lib/get-file");
-const replaceUrls = require("../../lib/replace-urls");
-const saveFile = require("../../lib/save-file");
+const getFile = require("../lib/get-file");
+const replaceUrls = require("../lib/replace-urls");
+const saveFile = require("../lib/save-file");
 
-class AssetsCommand extends Command {
+class UrlsCommand extends Command {
   async run() {
-    const { flags } = this.parse(AssetsCommand);
+    const { flags } = this.parse(UrlsCommand);
     let files = await glob(`${flags.input}/**/*.html`);
 
     files
@@ -17,11 +17,11 @@ class AssetsCommand extends Command {
   }
 }
 
-AssetsCommand.description = `Convert relative assets paths to asset_url
+UrlsCommand.description = `Convert relative assets paths to asset_url
 Find and replace asset urls in html files
 `;
 
-AssetsCommand.flags = {
+UrlsCommand.flags = {
   input: flags.string({
     char: "i",
     description: "Input directory",
@@ -30,4 +30,4 @@ AssetsCommand.flags = {
   })
 };
 
-module.exports = AssetsCommand;
+module.exports = UrlsCommand;
