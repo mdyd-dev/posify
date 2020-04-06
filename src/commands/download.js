@@ -2,6 +2,7 @@ const { Command, flags } = require("@oclif/command");
 const URL = require('url');
 const scrape = require("website-scraper");
 const SaveToExistingDirectoryPlugin = require("website-scraper-existing-directory");
+const htmToHtml = require('../lib/htmToHtml');
 
 const ora = require("ora");
 
@@ -19,7 +20,7 @@ const download = ({ url, concurrency }) => {
     maxRecursiveDepth: 3,
     filenameGenerator: "bySiteStructure",
     directory: '.',
-    plugins: [new SaveToExistingDirectoryPlugin()]
+    plugins: [new SaveToExistingDirectoryPlugin(), new htmToHtml()]
   });
 };
 

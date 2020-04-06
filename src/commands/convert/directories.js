@@ -3,14 +3,12 @@ const { Command, flags } = require("@oclif/command");
 const glob = require("globby");
 const mv = require("mvdir");
 
-const renameHtmToHtml = require('../../lib/renameHtmToHtml');
-
 const ASSETS_EXT =
   "css,csv,doc,docx,gif,ico,jpeg,jpg,js,mp3,mp4,ogg,otf,pdf,png,ppt,svg,ttf,eot,txt,webm,webp,woff,woff2,xls,xlsx,zip";
 
-const notDynamic = file => !/(\.(aspx|cgi|php|jsp|jspx|cfm))/.test(file);
+const notDynamic = file => !/(\.(aspx|cgi|php|jsp|jspx|cfm))/.test(file); // move to download plugin
 
-const copyPages = async (input) => {
+const copyPages = async input => {
   const htmlFiles = await glob(`${input}/**/*.html`);
   const files = htmlFiles.filter(notDynamic);
 
@@ -22,7 +20,7 @@ const copyPages = async (input) => {
   });
 };
 
-const copyAssets = async (input) => {
+const copyAssets = async input => {
   const files = await glob(`${input}/**/*.{${ASSETS_EXT}}`);
 
   files.forEach(async filePath => {
@@ -37,7 +35,6 @@ class DirectoriesCommand extends Command {
   async run() {
     const { flags } = this.parse(DirectoriesCommand);
 
-    renameHtmToHtml(flags.input); // Rename .htm -> .html. Move to download plugin
     copyPages(flags.input);
     copyAssets(flags.input);
   }
