@@ -1,5 +1,6 @@
 const path = require("path");
 const url = require("url");
+const normalize = require('normalize-url');
 
 const MAX_FILENAME_LENGTH = 255;
 

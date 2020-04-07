@@ -8,7 +8,7 @@ class Simpleform extends Command {
 
     const init = spawn(
       "npx",
-      ["degit", "mdyd-dev/simpleform"],
+      ["degit", "mdyd-dev/simpleform", "--force"],
       {
         cwd: path.resolve(flags.input)
       }

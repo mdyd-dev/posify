@@ -1,6 +1,7 @@
 const { Command, flags } = require("@oclif/command");
+const { normalizeUrl } = require("../lib/utils");
 const URL = require("url");
-const root = require('rootextract.js');
+const root = require("root-domain");
 const scrape = require("website-scraper");
 const SaveToExistingDirectoryPlugin = require("website-scraper-existing-directory");
 const HtmToHtml = require("../lib/scraper-plugins/htmToHtml");
@@ -9,11 +10,14 @@ const GenerateFilename = require("../lib/scraper-plugins/generate-filename");
 const ora = require("ora");
 
 const download = ({ url, concurrency }) => {
-  const domain = URL.parse(url).host;
-  var rootDomain = root.parse(url).rootDomain;
+  const normalizedUrl = normalizeUrl(url);
+  const domain = URL.parse(normalizedUrl).host;
+  var rootDomain = root(domain);
+
+  console.log(domain, rootDomain);
 
   return scrape({
-    urls: [url],
+    urls: [normalizedUrl],
     urlFilter: (currentUrl) => {
       const domain = URL.parse(currentUrl).host;
       const re = new RegExp(`${rootDomain}$`);

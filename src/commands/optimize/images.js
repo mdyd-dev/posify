@@ -1,36 +1,69 @@
 const { Command, flags } = require("@oclif/command");
-const ora = require('ora');
+const glob = require("globby");
+const path = require("path");
+const fs = require("fs");
+const os = require("os");
+const sharp = require("sharp");
+const mvdir = require("mvdir");
 
-const imagemin = require("imagemin");
-const imageminJpegrecompress = require("imagemin-jpeg-recompress");
-const imageminPngquant = require("imagemin-pngquant");
+const makeTmpCopy = async (filePath, tmpDir) => {
+  const tmpFilePath = `${tmpDir}${path.sep}${filePath}`;
+
+  await mvdir(filePath, tmpFilePath, { copy: true });
+
+  return { filePath, tmpFilePath };
+};
+
+const compress = (filePath, tmpFilePath) => {
+  sharp(tmpFilePath)
+    .jpeg({
+      quality: 85,
+      progressive: true,
+      force: false,
+    })
+    .png({
+      quality: 85,
+      force: false,
+    })
+    .toFile(filePath, async (err) => {
+      if (err) {
+        await mvdir(tmpFilePath, filePath);
+        return console.log(`Error. Leaving original file: ${filePath}`);
+      } else {
+        fs.unlinkSync(tmpFilePath);
+      }
+    });
+};
 
 class ImagesCommand extends Command {
   async run() {
     const { flags } = this.parse(ImagesCommand);
 
-    const spinner = ora(`Optimizing images...`);
+    let files = await glob(`${flags.input}/**/*.{jpg,jpeg,png,webp}`);
 
-    await imagemin([`${flags.input}/*.{jpg,png}`], {
-      destination: flags.input,
-      plugins: [
-        imageminJpegrecompress({
-          quality: 'veryhigh',
-          min: 80,
-          max: 95
-        }),
-        imageminPngquant({
-          quality: [0.7, 0.9]
-        })
-      ]
-    });
+    if (files.length === 0) return;
 
-    spinner.succeed('Images optimized.');
+    console.log(`Optimizing ${files.length} images`);
+
+    const tmpDir = fs.mkdtempSync(`${os.tmpdir()}${path.sep}`);
+
+    if (process.env.DEBUG) {
+      console.log('Tmp dir: ', tmpDir);
+    }
+
+    const tmpPaths = await Promise.all(
+      files.map((filePath) => makeTmpCopy(filePath, tmpDir))
+    );
+
+    tmpPaths.map(({ filePath, tmpFilePath }) =>
+      compress(filePath, tmpFilePath)
+    );
+
   }
 }
 
 ImagesCommand.description = `Optimize images to make them smaller
-Carefully optimize images using jpeg-recompress and pngquant
+Optimize jpeg, jpg, png files to make them web-ready.
 `;
 
 ImagesCommand.flags = {
@@ -38,8 +71,8 @@ ImagesCommand.flags = {
     char: "i",
     description: "Input directory",
     required: true,
-    default: "."
-  })
+    default: ".",
+  }),
 };
 
 module.exports = ImagesCommand;

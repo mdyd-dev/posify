@@ -2,7 +2,7 @@
 // https://github.com/website-scraper/node-website-scraper/blob/master/lib/filename-generator/by-site-structure.js
 
 const path = require("path");
-const utils = require("./utils");
+const utils = require("../utils");
 const resourceTypes = require("website-scraper/lib/config/resource-types");
 const resourceTypeExtensions = require("website-scraper/lib/config/resource-ext-by-type");
 
