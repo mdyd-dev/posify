@@ -1,6 +1,5 @@
 const { Command, flags } = require("@oclif/command");
 const glob = require("globby");
-const ora = require("ora");
 
 const getFile = require("../lib/get-file");
 const replaceUrls = require("../lib/replace-urls");
@@ -12,14 +11,12 @@ class UrlsCommand extends Command {
 
     let files = await glob(`${flags.input}/**/*.html`);
 
-    const spinner = ora(`Updating urls in ${files.length} files`).start();
+    console.log(`Updating urls in ${files.length} files`);
 
     try {
       files.map(getFile).map(replaceUrls).map(saveFile);
-
-      spinner.succeed("Done");
     } catch (error) {
-      spinner.fail(`Error: ${error}`);
+      console.log(`Error: ${error}`);
     }
   }
 }

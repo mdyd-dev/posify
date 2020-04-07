@@ -15,7 +15,7 @@ $ npm install -g posify
 $ posify COMMAND
 running command...
 $ posify (-v|--version|version)
-posify/0.0.1 darwin-x64 node-v12.11.0
+posify/0.0.1 darwin-x64 node-v13.12.0
 $ posify --help [COMMAND]
 USAGE
   $ posify COMMAND
@@ -24,48 +24,13 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`posify convert:assets`](#posify-convertassets)
-* [`posify convert:forms`](#posify-convertforms)
 * [`posify download`](#posify-download)
 * [`posify help [COMMAND]`](#posify-help-command)
+* [`posify install:simpleform`](#posify-installsimpleform)
 * [`posify optimize:css`](#posify-optimizecss)
 * [`posify optimize:images`](#posify-optimizeimages)
 * [`posify optimize:js`](#posify-optimizejs)
-
-## `posify convert:assets`
-
-Convert relative assets paths to asset_url
-
-```
-USAGE
-  $ posify convert:assets
-
-OPTIONS
-  -i, --input=input  (required) [default: .] Input directory
-
-DESCRIPTION
-  Find and replace asset urls in html files
-```
-
-_See code: [src/commands/convert/assets.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/convert/assets.js)_
-
-## `posify convert:forms`
-
-Converts forms to simple form
-
-```
-USAGE
-  $ posify convert:forms
-
-OPTIONS
-  -i, --input=input  (required) [default: .] Input directory
-
-DESCRIPTION
-  Downloads simpleform module
-  Replaces action attribute to use simpleform module that sends email to the app owner
-```
-
-_See code: [src/commands/convert/forms.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/convert/forms.js)_
+* [`posify urls`](#posify-urls)
 
 ## `posify download`
 
@@ -102,6 +67,23 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
+## `posify install:simpleform`
+
+Installs Simpleform module
+
+```
+USAGE
+  $ posify install:simpleform
+
+OPTIONS
+  -i, --input=input  (required) [default: .] Input directory
+
+DESCRIPTION
+  Install Simpleform module that sends email to the app owner when form is submitted
+```
+
+_See code: [src/commands/install/simpleform.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/install/simpleform.js)_
+
 ## `posify optimize:css`
 
 Minify CSS using css-clean
@@ -131,7 +113,7 @@ OPTIONS
   -i, --input=input  (required) [default: .] Input directory
 
 DESCRIPTION
-  Carefully optimize images using jpeg-recompress and pngquant
+  Optimize jpeg, jpg, png files to make them web-ready.
 ```
 
 _See code: [src/commands/optimize/images.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/optimize/images.js)_
@@ -152,4 +134,21 @@ DESCRIPTION
 ```
 
 _See code: [src/commands/optimize/js.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/optimize/js.js)_
+
+## `posify urls`
+
+Find relative paths and update them
+
+```
+USAGE
+  $ posify urls
+
+OPTIONS
+  -i, --input=input  (required) [default: .] Input directory
+
+DESCRIPTION
+  Find and replace urls in html files, mostly needed for assets
+```
+
+_See code: [src/commands/urls.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/urls.js)_
 <!-- commandsstop -->

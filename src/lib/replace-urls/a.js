@@ -6,6 +6,6 @@ module.exports = (document) => {
   a.forEach(el => {
     if (!isEligible(el.href)) return;
 
-    el.href.replace(/.html?$/, '');
+    el.href = el.href.replace(/\.html?$/, '');
   });
 };

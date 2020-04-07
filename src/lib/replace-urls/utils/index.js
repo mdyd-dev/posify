@@ -1,8 +1,4 @@
 const _isAbsolute = url => {
-  if (typeof url !== 'string') {
-      throw new TypeError(`Expected a \`string\`, got \`${typeof url}\``);
-  }
-
   // Don't match Windows paths `c:\`
   if (/^[a-zA-Z]:\\/.test(url)) {
       return false;
@@ -28,6 +24,7 @@ const isEligible = url => {
 
 const getAssetPath = (url) => {
   return url
+    .replace(/^\//, '')
     .split(/\d*\/assets\//) // ../../../assets/instances/106/assets/images/favicon.ico -> images/favicon.ico
     .pop()
 };

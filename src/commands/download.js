@@ -14,8 +14,6 @@ const download = ({ url, concurrency }) => {
   const domain = URL.parse(normalizedUrl).host;
   var rootDomain = root(domain);
 
-  console.log(domain, rootDomain);
-
   return scrape({
     urls: [normalizedUrl],
     urlFilter: (currentUrl) => {
@@ -26,7 +24,7 @@ const download = ({ url, concurrency }) => {
     recursive: true,
     requestConcurrency: concurrency,
     maxRecursiveDepth: 3,
-    directory: "pos",
+    directory: domain,
     plugins: [
       new SaveToExistingDirectoryPlugin(),
       new HtmToHtml(),
@@ -44,7 +42,7 @@ class DownloadCommand extends Command {
 
     download(flags)
       .then(() => {
-        spinner.succeed("Done");
+        spinner.succeed(`Downloaded ${flags.url}`);
       })
       .catch((error) => {
         spinner.fail(`Error: ${error}`);
@@ -65,7 +63,7 @@ DownloadCommand.flags = {
   concurrency: flags.integer({
     char: "c",
     description: "Max concurrent connections",
-    default: 3,
+    default: 5,
   }),
 };
 
