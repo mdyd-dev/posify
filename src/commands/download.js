@@ -30,7 +30,7 @@ const download = ({ url, concurrency }) => {
     plugins: [
       new SaveToExistingDirectoryPlugin(),
       new HtmToHtml(),
-      new GenerateFilename(),
+      new GenerateFilename()
     ],
   });
 };

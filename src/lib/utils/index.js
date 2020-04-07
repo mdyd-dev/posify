@@ -58,6 +58,13 @@ function pull (arr, values) {
 	});
 };
 
+const sanitizeFilepath = (filePath) => {
+  filePath = path.normalize(filePath);
+  let pathParts = filePath.split(path.sep);
+  pathParts = pull(pathParts, "..");
+  pathParts[pathParts.length - 1] = shortenFilename(pathParts.pop());
+  return pathParts.join(path.sep);
+};
 
 module.exports = {
   getFilenameExtension,
@@ -67,5 +74,6 @@ module.exports = {
   getFilepathFromUrl,
   getHashFromUrl,
   getHostFromUrl,
-  pull
+  pull,
+  sanitizeFilepath
 };

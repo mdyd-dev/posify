@@ -2,8 +2,8 @@ const { Command, flags } = require("@oclif/command");
 const glob = require("globby");
 const Terser = require("terser");
 
-const getFile = require("../../lib/get-file");
-const saveFile = require("../../lib/save-file");
+const getFile = require("../../lib/utils/get-file");
+const saveFile = require("../../lib/utils/save-file");
 
 const minify = ({ filePath, fileContent }) => {
   return {
