@@ -28,7 +28,7 @@ $ npm install -g posify
 $ posify COMMAND
 running command...
 $ posify (-v|--version|version)
-posify/0.0.2 darwin-x64 node-v13.12.0
+posify/0.0.3 darwin-x64 node-v13.12.0
 $ posify --help [COMMAND]
 USAGE
   $ posify COMMAND
@@ -61,7 +61,7 @@ DESCRIPTION
   Downloads resources needed to display a webpage.
 ```
 
-_See code: [src/commands/download.js](https://github.com/mdyd-dev/posify/blob/v0.0.2/src/commands/download.js)_
+_See code: [src/commands/download.js](https://github.com/mdyd-dev/posify/blob/v0.0.3/src/commands/download.js)_
 
 ## `posify forms`
 
@@ -78,7 +78,7 @@ DESCRIPTION
   Install Simpleform module that sends email to the app owner when form is submitted
 ```
 
-_See code: [src/commands/forms.js](https://github.com/mdyd-dev/posify/blob/v0.0.2/src/commands/forms.js)_
+_See code: [src/commands/forms.js](https://github.com/mdyd-dev/posify/blob/v0.0.3/src/commands/forms.js)_
 
 ## `posify help [COMMAND]`
 
@@ -113,7 +113,7 @@ DESCRIPTION
   Ignores files that end with .min.css
 ```
 
-_See code: [src/commands/optimize/css.js](https://github.com/mdyd-dev/posify/blob/v0.0.2/src/commands/optimize/css.js)_
+_See code: [src/commands/optimize/css.js](https://github.com/mdyd-dev/posify/blob/v0.0.3/src/commands/optimize/css.js)_
 
 ## `posify optimize:images`
 
@@ -130,7 +130,7 @@ DESCRIPTION
   Optimize jpeg, jpg, png files to make them web-ready
 ```
 
-_See code: [src/commands/optimize/images.js](https://github.com/mdyd-dev/posify/blob/v0.0.2/src/commands/optimize/images.js)_
+_See code: [src/commands/optimize/images.js](https://github.com/mdyd-dev/posify/blob/v0.0.3/src/commands/optimize/images.js)_
 
 ## `posify optimize:js`
 
@@ -148,7 +148,7 @@ DESCRIPTION
   Ignores files that end with .min.js
 ```
 
-_See code: [src/commands/optimize/js.js](https://github.com/mdyd-dev/posify/blob/v0.0.2/src/commands/optimize/js.js)_
+_See code: [src/commands/optimize/js.js](https://github.com/mdyd-dev/posify/blob/v0.0.3/src/commands/optimize/js.js)_
 
 ## `posify urls`
 
@@ -165,5 +165,5 @@ DESCRIPTION
   Find and replace urls in html files, mostly needed for assets
 ```
 
-_See code: [src/commands/urls.js](https://github.com/mdyd-dev/posify/blob/v0.0.2/src/commands/urls.js)_
+_See code: [src/commands/urls.js](https://github.com/mdyd-dev/posify/blob/v0.0.3/src/commands/urls.js)_
 <!-- commandsstop -->
