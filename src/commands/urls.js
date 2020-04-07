@@ -1,9 +1,9 @@
 const { Command, flags } = require("@oclif/command");
 const glob = require("globby");
 
-const getFile = require("../lib/get-file");
+const getFile = require("../lib/utils/get-file");
+const saveFile = require("../lib/utils/save-file");
 const replaceUrls = require("../lib/replace-urls");
-const saveFile = require("../lib/save-file");
 
 class UrlsCommand extends Command {
   async run() {

@@ -14,8 +14,6 @@ class GenerateFilename {
       let filePath = utils.getFilepathFromUrl(resourceUrl);
       let extension = utils.getFilenameExtension(filePath);
 
-      console.log(filePath, extension);
-
       // If we have HTML from 'http://example.com/path' => set 'path/index.html' as filepath
       if (resource.isHtml()) {
         const htmlExtensions = resourceTypeExtensions[resourceTypes.html];
