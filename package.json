@@ -39,7 +39,7 @@
     "/oclif.manifest.json",
     "/src"
   ],
-  "homepage": "https://github.com/pavelloz/posify",
+  "homepage": "https://github.com/mdyd-dev/posify",
   "license": "MIT",
   "main": "src/index.js",
   "oclif": {
