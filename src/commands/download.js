@@ -9,17 +9,19 @@ const GenerateFilename = require("../lib/scraper-plugins/generate-filename");
 
 const ora = require("ora");
 
+const isDynamic = url => /(.aspx|.php|.cgi|.cfm|.jsp|.asp)/.test(url);
+
 const download = ({ url, concurrency }) => {
   const normalizedUrl = normalizeUrl(url);
   const domain = URL.parse(normalizedUrl).host;
-  var rootDomain = root(domain);
 
   return scrape({
     urls: [normalizedUrl],
     urlFilter: (currentUrl) => {
       const domain = URL.parse(currentUrl).host;
-      const re = new RegExp(`${rootDomain}$`);
-      return re.test(domain);
+      const rootDomainRe = new RegExp(`${root(domain)}$`);
+
+      return rootDomainRe.test(domain) && !isDynamic(currentUrl);
     },
     recursive: true,
     requestConcurrency: concurrency,
