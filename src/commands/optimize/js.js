@@ -1,8 +1,6 @@
 const { Command, flags } = require("@oclif/command");
 const glob = require("globby");
-const Terser = require('terser');
-
-const ora = require('ora');
+const Terser = require("terser");
 
 const getFile = require("../../lib/get-file");
 const saveFile = require("../../lib/save-file");
@@ -10,29 +8,28 @@ const saveFile = require("../../lib/save-file");
 const minify = ({ filePath, fileContent }) => {
   return {
     filePath,
-    fileContent: Terser.minify(fileContent).code
-  }
-}
+    fileContent: Terser.minify(fileContent).code,
+  };
+};
 
 class JSCommand extends Command {
   async run() {
     const { flags } = this.parse(JSCommand);
-    const files = await glob(`${flags.input}/**/*.js`);
+    const files = await glob([`${flags.input}/**/*.js`, `!${flags.input}/**/*.min.js`]);
 
     if (files.length === 0) {
-      return console.log('No JS to minify.');
+      return console.log("No JS to minify.");
     }
-
-    const spinner = ora(`Minifying ${files.length} JS files.`);
 
     files.map(getFile).map(minify).map(saveFile);
 
-    spinner.succeed('JS minified.');
+    console.log(`Minified ${files.length} JS files.`);
   }
 }
 
-JSCommand.description = `Minify JS using Terser
-Makes your JS files smaller and production ready.
+JSCommand.description = `Minify JS code
+Makes your JS files smaller and production ready
+Ignores files that end with .min.js
 `;
 
 JSCommand.flags = {
@@ -40,8 +37,8 @@ JSCommand.flags = {
     char: "i",
     description: "Input directory",
     required: true,
-    default: "."
-  })
+    default: ".",
+  }),
 };
 
 module.exports = JSCommand;

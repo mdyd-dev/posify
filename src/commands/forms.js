@@ -2,9 +2,9 @@ const { Command, flags } = require("@oclif/command");
 const { spawn } = require("child_process");
 const path = require("path");
 
-class Simpleform extends Command {
+class Forms extends Command {
   async run() {
-    const { flags } = this.parse(Simpleform);
+    const { flags } = this.parse(Forms);
 
     const init = spawn(
       "npx",
@@ -24,11 +24,11 @@ class Simpleform extends Command {
   }
 }
 
-Simpleform.description = `Installs Simpleform module
+Forms.description = `Installs Simpleform module
 Install Simpleform module that sends email to the app owner when form is submitted
 `;
 
-Simpleform.flags = {
+Forms.flags = {
   input: flags.string({
     char: "i",
     description: "Input directory",
@@ -37,4 +37,4 @@ Simpleform.flags = {
   })
 };
 
-module.exports = Simpleform;
+module.exports = Forms;

@@ -3,6 +3,19 @@ posify
 
 Convert your webpage to platformOS one
 
+This CLI consists of commands that are performing single operations on a webpage.
+
+This is the order they should be run on:
+
+1. download
+2. urls
+3. forms
+
+Optionally, if not sure that assets are optimized: 
+
+4. optimize:css
+5. optimize:js
+6. optimize:images
 
 <!-- toc -->
 * [Usage](#usage)
@@ -25,8 +38,8 @@ USAGE
 # Commands
 <!-- commands -->
 * [`posify download`](#posify-download)
+* [`posify forms`](#posify-forms)
 * [`posify help [COMMAND]`](#posify-help-command)
-* [`posify install:simpleform`](#posify-installsimpleform)
 * [`posify optimize:css`](#posify-optimizecss)
 * [`posify optimize:images`](#posify-optimizeimages)
 * [`posify optimize:js`](#posify-optimizejs)
@@ -41,7 +54,7 @@ USAGE
   $ posify download
 
 OPTIONS
-  -c, --concurrency=concurrency  [default: 3] Max concurrent connections
+  -c, --concurrency=concurrency  [default: 5] Max concurrent connections
   -u, --url=url                  (required) Address of webpage to download
 
 DESCRIPTION
@@ -49,6 +62,23 @@ DESCRIPTION
 ```
 
 _See code: [src/commands/download.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/download.js)_
+
+## `posify forms`
+
+Installs Simpleform module
+
+```
+USAGE
+  $ posify forms
+
+OPTIONS
+  -i, --input=input  (required) [default: .] Input directory
+
+DESCRIPTION
+  Install Simpleform module that sends email to the app owner when form is submitted
+```
+
+_See code: [src/commands/forms.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/forms.js)_
 
 ## `posify help [COMMAND]`
 
@@ -67,26 +97,9 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
-## `posify install:simpleform`
-
-Installs Simpleform module
-
-```
-USAGE
-  $ posify install:simpleform
-
-OPTIONS
-  -i, --input=input  (required) [default: .] Input directory
-
-DESCRIPTION
-  Install Simpleform module that sends email to the app owner when form is submitted
-```
-
-_See code: [src/commands/install/simpleform.js](https://github.com/mdyd-dev/posify/blob/v0.0.1/src/commands/install/simpleform.js)_
-
 ## `posify optimize:css`
 
-Minify CSS using css-clean
+Minify CSS files
 
 ```
 USAGE
@@ -120,7 +133,7 @@ _See code: [src/commands/optimize/images.js](https://github.com/mdyd-dev/posify/
 
 ## `posify optimize:js`
 
-Minify JS using Terser
+Minify JS code
 
 ```
 USAGE

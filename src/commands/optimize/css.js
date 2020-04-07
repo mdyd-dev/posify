@@ -1,7 +1,6 @@
 const { Command, flags } = require("@oclif/command");
 const glob = require("globby");
-const CleanCSS = require('clean-css');
-const ora = require('ora');
+const CleanCSS = require("clean-css");
 
 const getFile = require("../../lib/get-file");
 const saveFile = require("../../lib/save-file");
@@ -9,29 +8,28 @@ const saveFile = require("../../lib/save-file");
 const minify = ({ filePath, fileContent }) => {
   return {
     filePath,
-    fileContent: new CleanCSS().minify(fileContent).styles
-  }
-}
+    fileContent: new CleanCSS().minify(fileContent).styles,
+  };
+};
 
 class CSSCommand extends Command {
   async run() {
     const { flags } = this.parse(CSSCommand);
-    const files = await glob(`${flags.input}/**/*.css`);
+    const files = await glob([`${flags.input}/**/*.css`, `!${flags.input}/**/*.min.css`]);
 
     if (files.length === 0) {
-      return console.log('No CSS to minify.');
+      return console.log("No CSS to minify.");
     }
-
-    const spinner = ora(`Minifying ${files.length} CSS files.`);
 
     files.map(getFile).map(minify).map(saveFile);
 
-    spinner.succeed('CSS minified.');
+    console.log(`Minified ${files.length} CSS files.`);
   }
 }
 
-CSSCommand.description = `Minify CSS using css-clean
-Makes your CSS files smaller and production ready.
+CSSCommand.description = `Minify CSS files
+Makes your CSS files smaller and production ready
+Ignores files that end with .min.css
 `;
 
 CSSCommand.flags = {
@@ -39,8 +37,8 @@ CSSCommand.flags = {
     char: "i",
     description: "Input directory",
     required: true,
-    default: "."
-  })
+    default: ".",
+  }),
 };
 
 module.exports = CSSCommand;

@@ -43,7 +43,6 @@ class ImagesCommand extends Command {
 
     if (files.length === 0) return;
 
-    console.log(`Optimizing ${files.length} images`);
 
     const tmpDir = fs.mkdtempSync(`${os.tmpdir()}${path.sep}`);
 
@@ -59,11 +58,13 @@ class ImagesCommand extends Command {
       compress(filePath, tmpFilePath)
     );
 
+    console.log(`Optimized ${files.length} images.`);
+
   }
 }
 
 ImagesCommand.description = `Optimize images to make them smaller
-Optimize jpeg, jpg, png files to make them web-ready.
+Optimize jpeg, jpg, png files to make them web-ready
 `;
 
 ImagesCommand.flags = {
