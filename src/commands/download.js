@@ -1,5 +1,5 @@
 const { Command, flags } = require("@oclif/command");
-const { normalizeUrl } = require("../lib/utils");
+const { normalizeUrl, getHostFromUrl } = require("../lib/utils");
 const URL = require("url");
 const root = require("root-domain");
 const scrape = require("website-scraper");
@@ -9,19 +9,35 @@ const GenerateFilename = require("../lib/scraper-plugins/generate-filename");
 
 const ora = require("ora");
 
-const isDynamic = url => /(.aspx|.php|.cgi|.cfm|.jsp|.asp)/.test(url);
+const isEligible = (currentUrl, domain) => {
+  const currentDomain = getHostFromUrl(currentUrl);
+  const dynamic = /(.aspx|.php|.cgi|.cfm|.jsp|.asp)/.test(currentUrl);
+
+  if (currentDomain !== domain || dynamic) {
+    return false;
+  }
+
+  return true;
+}
 
 const download = ({ url, concurrency }) => {
   const normalizedUrl = normalizeUrl(url);
-  const domain = URL.parse(normalizedUrl).host;
+  const domain = getHostFromUrl(url);
+
+  console.log('Downloading ', normalizedUrl);
 
   return scrape({
     urls: [normalizedUrl],
     urlFilter: (currentUrl) => {
-      const domain = URL.parse(currentUrl).host;
-      const rootDomainRe = new RegExp(`${root(domain)}$`);
+      if (!isEligible(currentUrl, domain)) return false;
 
-      return rootDomainRe.test(domain) && !isDynamic(currentUrl);
+      if (process.env.DEBUG) {
+        console.log(`Fetching ${currentUrl}`);
+      } else {
+        process.stdout.write('.');
+      }
+
+      return true;
     },
     recursive: true,
     requestConcurrency: concurrency,
@@ -40,10 +56,11 @@ class DownloadCommand extends Command {
     const cli = this;
     const { flags } = this.parse(DownloadCommand);
 
-    const spinner = ora(`Downloading ${flags.url}`).start();
+    const spinner = ora(`Downloading ${flags.url}`);
 
     download(flags)
       .then(() => {
+        console.log('');
         spinner.succeed(`Downloaded ${flags.url}`);
       })
       .catch((error) => {
@@ -65,7 +82,7 @@ DownloadCommand.flags = {
   concurrency: flags.integer({
     char: "c",
     description: "Max concurrent connections",
-    default: 5,
+    default: 3,
   }),
 };
 
