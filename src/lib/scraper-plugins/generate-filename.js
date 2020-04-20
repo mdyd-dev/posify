@@ -2,29 +2,53 @@
 // https://github.com/website-scraper/node-website-scraper/blob/master/lib/filename-generator/by-site-structure.js
 
 const path = require("path");
+const mt = require("mime-types");
 const utils = require("../utils");
 const resourceTypes = require("website-scraper/lib/config/resource-types");
 const resourceTypeExtensions = require("website-scraper/lib/config/resource-ext-by-type");
 
 class GenerateFilename {
   apply(registerAction) {
-    registerAction("generateFilename", ({ resource }) => {
+    registerAction("generateFilename", ({ resource, responseData }) => {
       const resourceUrl = resource.getUrl();
       const host = utils.getHostFromUrl(resourceUrl);
       let filePath = utils.getFilepathFromUrl(resourceUrl);
       let extension = utils.getFilenameExtension(filePath);
+      const mimeExtension = mt.extension(responseData.mimeType);
+      const viewsDirectory = "app/views/pages";
 
-      // If we have HTML from 'http://example.com/path' => set 'path/index.html' as filepath
-      if (resource.isHtml()) {
-        const htmlExtensions = resourceTypeExtensions[resourceTypes.html];
-        const resourceHasHtmlExtension = htmlExtensions.includes(extension);
-        filePath = `app/views/pages/${filePath}`;
-        // add index.html only if filepath has ext != html '/path/test.com' => '/path/test.com/index.html'
-        if (!resourceHasHtmlExtension) {
-          filePath = path.join(filePath, "index.html");
+      if (process.env.DEBUG) {
+        console.log("original filePath", filePath);
+        console.log("extension", extension, extension === "");
+        console.log("mimeExtension", mimeExtension);
+      }
+
+      if (extension === "") {
+        //  Guess extension based on mime type
+        if (mimeExtension === "html") {
+          filePath = `${viewsDirectory}/${filePath}/index.html`;
+          if (process.env.DEBUG) {
+            console.log("filePath", filePath);
+          }
+        } else {
+          filePath = `app/assets/${filePath}.${mimeExtension}`;
+          if (process.env.DEBUG) {
+            console.log("filePath", filePath);
+          }
         }
       } else {
-        filePath = `app/assets/${filePath}`;
+        // Use detected extension from path
+        if (mimeExtension === "html") {
+          filePath = `${viewsDirectory}/${filePath}`;
+          if (process.env.DEBUG) {
+            console.log("filePath", filePath);
+          }
+        } else {
+          filePath = `app/assets/${filePath}`;
+          if (process.env.DEBUG) {
+            console.log("filePath", filePath);
+          }
+        }
       }
 
       return { filename: utils.sanitizeFilepath(filePath) };

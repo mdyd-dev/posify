@@ -17,6 +17,7 @@
     "degit": "^2.8.0",
     "globby": "^11",
     "jsdom": "^16.2.2",
+    "mime-types": "^2.1.26",
     "mvdir": "^1.0.17",
     "normalize-url": "^5.0.0",
     "ora": "^4.0.3",
