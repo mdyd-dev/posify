@@ -28,7 +28,7 @@ $ npm install -g posify
 $ posify COMMAND
 running command...
 $ posify (-v|--version|version)
-posify/0.0.4 darwin-x64 node-v13.12.0
+posify/0.1.0 darwin-x64 node-v12.16.1
 $ posify --help [COMMAND]
 USAGE
   $ posify COMMAND
@@ -54,14 +54,14 @@ USAGE
   $ posify download
 
 OPTIONS
-  -c, --concurrency=concurrency  [default: 5] Max concurrent connections
+  -c, --concurrency=concurrency  [default: 3] Max concurrent connections
   -u, --url=url                  (required) Address of webpage to download
 
 DESCRIPTION
   Downloads resources needed to display a webpage.
 ```
 
-_See code: [src/commands/download.js](https://github.com/mdyd-dev/posify/blob/v0.0.4/src/commands/download.js)_
+_See code: [src/commands/download.js](https://github.com/mdyd-dev/posify/blob/v0.1.0/src/commands/download.js)_
 
 ## `posify forms`
 
@@ -75,10 +75,11 @@ OPTIONS
   -i, --input=input  (required) [default: .] Input directory
 
 DESCRIPTION
-  Install Simpleform module that sends email to the app owner when form is submitted
+  Install Simpleform module that sends email to the app owner when form is submitted.
+  This command will create modules/ directory, so its best to run it in root project folder.
 ```
 
-_See code: [src/commands/forms.js](https://github.com/mdyd-dev/posify/blob/v0.0.4/src/commands/forms.js)_
+_See code: [src/commands/forms.js](https://github.com/mdyd-dev/posify/blob/v0.1.0/src/commands/forms.js)_
 
 ## `posify help [COMMAND]`
 
@@ -113,7 +114,7 @@ DESCRIPTION
   Ignores files that end with .min.css
 ```
 
-_See code: [src/commands/optimize/css.js](https://github.com/mdyd-dev/posify/blob/v0.0.4/src/commands/optimize/css.js)_
+_See code: [src/commands/optimize/css.js](https://github.com/mdyd-dev/posify/blob/v0.1.0/src/commands/optimize/css.js)_
 
 ## `posify optimize:images`
 
@@ -130,7 +131,7 @@ DESCRIPTION
   Optimize jpeg, jpg, png files to make them web-ready
 ```
 
-_See code: [src/commands/optimize/images.js](https://github.com/mdyd-dev/posify/blob/v0.0.4/src/commands/optimize/images.js)_
+_See code: [src/commands/optimize/images.js](https://github.com/mdyd-dev/posify/blob/v0.1.0/src/commands/optimize/images.js)_
 
 ## `posify optimize:js`
 
@@ -148,7 +149,7 @@ DESCRIPTION
   Ignores files that end with .min.js
 ```
 
-_See code: [src/commands/optimize/js.js](https://github.com/mdyd-dev/posify/blob/v0.0.4/src/commands/optimize/js.js)_
+_See code: [src/commands/optimize/js.js](https://github.com/mdyd-dev/posify/blob/v0.1.0/src/commands/optimize/js.js)_
 
 ## `posify urls`
 
@@ -165,5 +166,5 @@ DESCRIPTION
   Find and replace urls in html files, mostly needed for assets
 ```
 
-_See code: [src/commands/urls.js](https://github.com/mdyd-dev/posify/blob/v0.0.4/src/commands/urls.js)_
+_See code: [src/commands/urls.js](https://github.com/mdyd-dev/posify/blob/v0.1.0/src/commands/urls.js)_
 <!-- commandsstop -->
