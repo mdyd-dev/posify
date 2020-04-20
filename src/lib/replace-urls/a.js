@@ -1,4 +1,4 @@
-const { isEligible } = require('./utils');
+const { isEligible, assetify } = require('./utils');
 
 module.exports = (document) => {
   const a = document.querySelectorAll('a[href]');
@@ -6,6 +6,12 @@ module.exports = (document) => {
   a.forEach(el => {
     if (!isEligible(el.href)) return;
 
-    el.href = el.href.replace(/\.html?$/, '');
+    if (/html$/.test(el.href)) {
+      el.href = el.href.replace(/\/index.html$/, '');
+    }
+
+    if (/\/assets\//.test(el.href)) {
+      el.href = assetify(el.href);
+    }
   });
 };
