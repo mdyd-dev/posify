@@ -18,9 +18,11 @@ class GenerateFilename {
       const viewsDirectory = "app/views/pages";
 
       if (process.env.DEBUG) {
-        console.log("original filePath", filePath);
-        console.log("extension", extension, extension === "");
-        console.log("mimeExtension", mimeExtension);
+        console.log({
+          filePath,
+          extension,
+          mimeExtension
+        });
       }
 
       if (extension === "") {
@@ -28,12 +30,12 @@ class GenerateFilename {
         if (mimeExtension === "html") {
           filePath = `${viewsDirectory}/${filePath}/index.html`;
           if (process.env.DEBUG) {
-            console.log("filePath", filePath);
+            console.log("Final filePath", filePath);
           }
         } else {
           filePath = `app/assets/${filePath}.${mimeExtension}`;
           if (process.env.DEBUG) {
-            console.log("filePath", filePath);
+            console.log("Final filePath", filePath);
           }
         }
       } else {
@@ -41,12 +43,12 @@ class GenerateFilename {
         if (mimeExtension === "html") {
           filePath = `${viewsDirectory}/${filePath}`;
           if (process.env.DEBUG) {
-            console.log("filePath", filePath);
+            console.log("Final filePath", filePath);
           }
         } else {
           filePath = `app/assets/${filePath}`;
           if (process.env.DEBUG) {
-            console.log("filePath", filePath);
+            console.log("Final filePath", filePath);
           }
         }
       }

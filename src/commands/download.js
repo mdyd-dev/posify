@@ -10,21 +10,28 @@ const GenerateFilename = require("../lib/scraper-plugins/generate-filename");
 const ora = require("ora");
 
 const isEligible = (currentUrl, domain) => {
-  const currentDomain = getHostFromUrl(currentUrl);
+  const currentDomain = getHostFromUrl(currentUrl).replace(/^www\./, '');
   const dynamic = /(.aspx|.php|.cgi|.cfm|.jsp|.asp)/.test(currentUrl);
+
+  if (process.env.DEBUG) {
+    console.log('Domain info', {
+      currentDomain,
+      dynamic
+    });
+  }
 
   if (currentDomain !== domain || dynamic) {
     return false;
   }
 
   return true;
-}
+};
 
 const download = ({ url, concurrency }) => {
   const normalizedUrl = normalizeUrl(url);
   const domain = getHostFromUrl(url);
 
-  console.log('Downloading ', normalizedUrl);
+  console.log("Downloading ", normalizedUrl);
 
   return scrape({
     urls: [normalizedUrl],
@@ -34,7 +41,7 @@ const download = ({ url, concurrency }) => {
       if (process.env.DEBUG) {
         console.log(`Fetching ${currentUrl}`);
       } else {
-        process.stdout.write('.');
+        process.stdout.write(".");
       }
 
       return true;
@@ -46,7 +53,7 @@ const download = ({ url, concurrency }) => {
     plugins: [
       new SaveToExistingDirectoryPlugin(),
       new HtmToHtml(),
-      new GenerateFilename()
+      new GenerateFilename(),
     ],
   });
 };
@@ -60,7 +67,7 @@ class DownloadCommand extends Command {
 
     download(flags)
       .then(() => {
-        console.log('');
+        console.log("");
         spinner.succeed(`Downloaded ${flags.url}`);
       })
       .catch((error) => {
