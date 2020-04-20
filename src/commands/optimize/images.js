@@ -28,6 +28,9 @@ const compress = (filePath, tmpFilePath) => {
     .toFile(filePath, async (err) => {
       if (err) {
         await mvdir(tmpFilePath, filePath);
+        if (process.env.DEBUG) {
+          console.log(err);
+        }
         return console.log(`Error. Leaving original file: ${filePath}`);
       } else {
         fs.unlinkSync(tmpFilePath);
@@ -42,7 +45,6 @@ class ImagesCommand extends Command {
     let files = await glob(`${flags.input}/**/*.{jpg,jpeg,png,webp}`);
 
     if (files.length === 0) return;
-
 
     const tmpDir = fs.mkdtempSync(`${os.tmpdir()}${path.sep}`);
 

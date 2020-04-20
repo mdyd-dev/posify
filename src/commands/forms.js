@@ -26,7 +26,7 @@ class Forms extends Command {
 
 Forms.description = `Installs Simpleform module
 Install Simpleform module that sends email to the app owner when form is submitted.
-This command will create modules/ directory, so its best to run it in root project folder.
+This command will create modules/ directory inside input directory (root)
 `;
 
 Forms.flags = {
