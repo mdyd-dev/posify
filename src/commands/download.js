@@ -31,6 +31,13 @@ const download = ({ url, concurrency }) => {
   const normalizedUrl = normalizeUrl(url);
   const domain = getHostFromUrl(url);
 
+  if (process.env.DEBUG) {
+    console.log({
+      normalizedUrl,
+      domain
+    })
+  }
+
   console.log("Downloading ", normalizedUrl);
 
   return scrape({
@@ -49,7 +56,7 @@ const download = ({ url, concurrency }) => {
     recursive: true,
     requestConcurrency: concurrency,
     maxRecursiveDepth: 3,
-    directory: domain,
+    directory: normalizedUrl,
     plugins: [
       new SaveToExistingDirectoryPlugin(),
       // new HtmToHtml(),
