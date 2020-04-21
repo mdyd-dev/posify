@@ -18,7 +18,7 @@ class GenerateFilename {
       const viewsDirectory = "app/views/pages";
 
       if (process.env.DEBUG) {
-        console.log({
+        console.log('Original data', {
           filePath,
           extension,
           mimeExtension
