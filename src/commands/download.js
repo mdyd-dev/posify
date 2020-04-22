@@ -56,7 +56,7 @@ const download = ({ url, concurrency }) => {
     recursive: true,
     requestConcurrency: concurrency,
     maxRecursiveDepth: 3,
-    directory: normalizedUrl,
+    directory: domain,
     plugins: [
       new SaveToExistingDirectoryPlugin(),
       // new HtmToHtml(),
