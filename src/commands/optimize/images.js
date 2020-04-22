@@ -14,24 +14,27 @@ const makeTmpCopy = async (filePath, tmpDir) => {
   return { filePath, tmpFilePath };
 };
 
-const compress = (filePath, tmpFilePath) => {
+const compress = (filePath, tmpFilePath, quality) => {
   sharp(tmpFilePath)
     .jpeg({
-      quality: 85,
+      quality,
       progressive: true,
-      force: false,
+      force: false
     })
     .png({
-      quality: 85,
-      force: false,
+      quality,
+      force: false
+    })
+    .webp({
+      quality,
+      force: false
     })
     .toFile(filePath, async (err) => {
       if (err) {
         await mvdir(tmpFilePath, filePath);
         if (process.env.DEBUG) {
-          console.log(err);
+          console.log(`Error. Leaving original file: ${filePath}`);
         }
-        return console.log(`Error. Leaving original file: ${filePath}`);
       } else {
         fs.unlinkSync(tmpFilePath);
       }
@@ -57,11 +60,10 @@ class ImagesCommand extends Command {
     );
 
     tmpPaths.map(({ filePath, tmpFilePath }) =>
-      compress(filePath, tmpFilePath)
+      compress(filePath, tmpFilePath, flags.quality)
     );
 
     console.log(`Optimized ${files.length} images.`);
-
   }
 }
 
@@ -74,8 +76,13 @@ ImagesCommand.flags = {
     char: "i",
     description: "Input directory",
     required: true,
-    default: ".",
+    default: "."
   }),
+  quality: flags.integer({
+    char: "q",
+    description: "Quality (1-100). Higher = better quality and bigger file size, lower = worse quality and smaller file size",
+    default: 80
+  })
 };
 
 module.exports = ImagesCommand;
