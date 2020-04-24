@@ -27,21 +27,20 @@ const isEligible = (currentUrl, domain) => {
   return true;
 };
 
-const download = ({ url, concurrency }) => {
-  const normalizedUrl = normalizeUrl(url);
+const download = (url, { concurrency }) => {
   const domain = getHostFromUrl(url);
 
   if (process.env.DEBUG) {
-    console.log({
-      normalizedUrl,
+    console.log('URL', {
+      url,
       domain
     })
   }
 
-  console.log("Downloading ", normalizedUrl);
+  console.log("Downloading ", url);
 
   return scrape({
-    urls: [normalizedUrl],
+    urls: [url],
     urlFilter: (currentUrl) => {
       if (!isEligible(currentUrl, domain)) return false;
 
@@ -70,12 +69,14 @@ class DownloadCommand extends Command {
     const cli = this;
     const { flags } = this.parse(DownloadCommand);
 
-    const spinner = ora(`Downloading ${flags.url}`);
+    const normalizedUrl = normalizeUrl(flags.url, { stripWWW: false });
 
-    download(flags)
+    const spinner = ora(`Downloading ${normalizedUrl}`);
+
+    download(normalizedUrl, flags)
       .then(() => {
         console.log("");
-        spinner.succeed(`Downloaded ${flags.url}`);
+        spinner.succeed(`Downloaded ${normalizedUrl}`);
       })
       .catch((error) => {
         spinner.fail(`Error: ${error}`);
@@ -85,18 +86,25 @@ class DownloadCommand extends Command {
 
 DownloadCommand.description = `Download a complete webpage with assets
 Downloads resources needed to display a webpage.
+It will download files only within the same root domain.
+
+For example, if you download https://my.example.site.example.com,
+only files within example.com will be downloaded.
 `;
+
+DownloadCommand.usage = 'download --url http://example.com';
+DownloadCommand.example = 'posify download -c 5 -u http://example.com';
 
 DownloadCommand.flags = {
   url: flags.string({
     char: "u",
-    description: "Address of webpage to download",
-    required: true,
+    description: "URL of webpage to download",
+    required: true
   }),
   concurrency: flags.integer({
     char: "c",
     description: "Max concurrent connections",
-    default: 3,
+    default: 3
   }),
 };
 

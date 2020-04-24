@@ -30,25 +30,29 @@ class GenerateFilename {
         if (mimeExtension === "html") {
           filePath = `${viewsDirectory}/${filePath}/index.html`;
           if (process.env.DEBUG) {
-            console.log("Final filePath", filePath);
+            console.log("Final filePath (html, mime)", filePath);
           }
         } else {
           filePath = `app/assets/${filePath}.${mimeExtension}`;
           if (process.env.DEBUG) {
-            console.log("Final filePath", filePath);
+            console.log("Final filePath (non-html, mime)", filePath);
           }
         }
       } else {
         // Use detected extension from path
         if (mimeExtension === "html") {
-          filePath = `${viewsDirectory}/${filePath}`;
+          const fpArr = filePath.split('.');
+          fpArr.pop();
+          const dirPath = fpArr.join();
+
+          filePath = `${viewsDirectory}/${dirPath}/index.html`;
           if (process.env.DEBUG) {
-            console.log("Final filePath", filePath);
+            console.log("Final filePath (html, ext orig)", filePath);
           }
         } else {
           filePath = `app/assets/${filePath}`;
           if (process.env.DEBUG) {
-            console.log("Final filePath", filePath);
+            console.log("Final filePath (non-html, ext orig)", filePath);
           }
         }
       }
