@@ -28,7 +28,7 @@ $ npm install -g posify
 $ posify COMMAND
 running command...
 $ posify (-v|--version|version)
-posify/0.1.0 darwin-x64 node-v12.16.1
+posify/0.1.0 darwin-x64 node-v13.12.0
 $ posify --help [COMMAND]
 USAGE
   $ posify COMMAND
@@ -37,7 +37,7 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`posify download`](#posify-download)
+* [`posify download --url http://example.com`](#posify-download---url-httpexamplecom)
 * [`posify forms`](#posify-forms)
 * [`posify help [COMMAND]`](#posify-help-command)
 * [`posify optimize:css`](#posify-optimizecss)
@@ -45,20 +45,27 @@ USAGE
 * [`posify optimize:js`](#posify-optimizejs)
 * [`posify urls`](#posify-urls)
 
-## `posify download`
+## `posify download --url http://example.com`
 
 Download a complete webpage with assets
 
 ```
 USAGE
-  $ posify download
+  $ posify download --url http://example.com
 
 OPTIONS
   -c, --concurrency=concurrency  [default: 3] Max concurrent connections
-  -u, --url=url                  (required) Address of webpage to download
+  -u, --url=url                  (required) URL of webpage to download
 
 DESCRIPTION
   Downloads resources needed to display a webpage.
+  It will download files only within the same root domain.
+
+  For example, if you download https://my.example.site.example.com,
+  only files within example.com will be downloaded.
+
+EXAMPLES
+  posify download -c 5 -u http://example.com
 ```
 
 _See code: [src/commands/download.js](https://github.com/mdyd-dev/posify/blob/v0.1.0/src/commands/download.js)_
@@ -76,7 +83,7 @@ OPTIONS
 
 DESCRIPTION
   Install Simpleform module that sends email to the app owner when form is submitted.
-  This command will create modules/ directory, so its best to run it in root project folder.
+  This command will create modules/ directory inside input directory (root)
 ```
 
 _See code: [src/commands/forms.js](https://github.com/mdyd-dev/posify/blob/v0.1.0/src/commands/forms.js)_
@@ -118,17 +125,19 @@ _See code: [src/commands/optimize/css.js](https://github.com/mdyd-dev/posify/blo
 
 ## `posify optimize:images`
 
-Optimize images to make them smaller
+Optimize images to make them smaller - mac OS only
 
 ```
 USAGE
   $ posify optimize:images
 
 OPTIONS
-  -i, --input=input  (required) [default: .] Input directory
+  -i, --input=input      (required) [default: .] Input directory
+  -q, --quality=quality  [default: 70-85] Quality range
 
 DESCRIPTION
-  Optimize jpeg, jpg, png files to make them web-ready
+  Optimize jpeg/jpg, png, gif, svg and webp files to make them web-ready
+  Requires ImageOptim to be installed in the system. Download at: https://imageoptim.com/mac
 ```
 
 _See code: [src/commands/optimize/images.js](https://github.com/mdyd-dev/posify/blob/v0.1.0/src/commands/optimize/images.js)_

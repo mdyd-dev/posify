@@ -1,74 +1,33 @@
 const { Command, flags } = require("@oclif/command");
-const glob = require("globby");
-const path = require("path");
-const fs = require("fs");
-const os = require("os");
-const sharp = require("sharp");
-const mvdir = require("mvdir");
-
-const makeTmpCopy = async (filePath, tmpDir) => {
-  const tmpFilePath = `${tmpDir}${path.sep}${filePath}`;
-
-  await mvdir(filePath, tmpFilePath, { copy: true });
-
-  return { filePath, tmpFilePath };
-};
-
-const compress = (filePath, tmpFilePath, quality) => {
-  sharp(tmpFilePath)
-    .jpeg({
-      quality,
-      progressive: true,
-      force: false
-    })
-    .png({
-      quality,
-      force: false
-    })
-    .webp({
-      quality,
-      force: false
-    })
-    .toFile(filePath, async (err) => {
-      if (err) {
-        await mvdir(tmpFilePath, filePath);
-        if (process.env.DEBUG) {
-          console.log(`Error. Leaving original file: ${filePath}`);
-        }
-      } else {
-        fs.unlinkSync(tmpFilePath);
-      }
-    });
-};
+const { spawn } = require("child_process");
+const ora = require("ora");
 
 class ImagesCommand extends Command {
   async run() {
     const { flags } = this.parse(ImagesCommand);
 
-    let files = await glob(`${flags.input}/**/*.{jpg,jpeg,png,webp}`);
+    const spinner = ora('Optimizing images').start();
 
-    if (files.length === 0) return;
+    const cmd = spawn("npx", [
+      "imageoptim",
+      `${flags.input}`,
+      `--quality ${flags.quality}`,
+      '-S'
+    ]);
 
-    const tmpDir = fs.mkdtempSync(`${os.tmpdir()}${path.sep}`);
+    cmd.on("exit", (code) => {
+      if (code !== 0) {
+        return spinner.fail("Something went wrong. Use ImageOptim app directly: https://imageoptim.com/mac");
+      }
 
-    if (process.env.DEBUG) {
-      console.log('Tmp dir: ', tmpDir);
-    }
-
-    const tmpPaths = await Promise.all(
-      files.map((filePath) => makeTmpCopy(filePath, tmpDir))
-    );
-
-    tmpPaths.map(({ filePath, tmpFilePath }) =>
-      compress(filePath, tmpFilePath, flags.quality)
-    );
-
-    console.log(`Optimized ${files.length} images.`);
+      spinner.succeed('Images optimized');
+    });
   }
 }
 
-ImagesCommand.description = `Optimize images to make them smaller
-Optimize jpeg, jpg, png files to make them web-ready
+ImagesCommand.description = `Optimize images to make them smaller - mac OS only
+Optimize jpeg/jpg, png, gif, svg and webp files to make them web-ready
+Requires ImageOptim to be installed in the system. Download at: https://imageoptim.com/mac
 `;
 
 ImagesCommand.flags = {
@@ -76,13 +35,13 @@ ImagesCommand.flags = {
     char: "i",
     description: "Input directory",
     required: true,
-    default: "."
+    default: ".",
   }),
-  quality: flags.integer({
+  quality: flags.string({
     char: "q",
-    description: "Quality (1-100). Higher = better quality and bigger file size, lower = worse quality and smaller file size",
-    default: 80
-  })
+    description: "Quality range",
+    default: "70-85",
+  }),
 };
 
 module.exports = ImagesCommand;
