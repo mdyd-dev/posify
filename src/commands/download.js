@@ -4,7 +4,6 @@ const URL = require("url");
 const root = require("root-domain");
 const scrape = require("website-scraper");
 const SaveToExistingDirectoryPlugin = require("website-scraper-existing-directory");
-// const HtmToHtml = require("../lib/scraper-plugins/htm-to-html");
 const GenerateFilename = require("../lib/scraper-plugins/generate-filename");
 
 const ora = require("ora");
@@ -58,7 +57,6 @@ const download = (url, { concurrency }) => {
     directory: domain,
     plugins: [
       new SaveToExistingDirectoryPlugin(),
-      // new HtmToHtml(),
       new GenerateFilename(),
     ],
   });
