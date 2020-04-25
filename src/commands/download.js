@@ -103,7 +103,7 @@ DownloadCommand.flags = {
   concurrency: flags.integer({
     char: "c",
     description: "Max concurrent connections",
-    default: 3
+    default: 10
   }),
 };
 
