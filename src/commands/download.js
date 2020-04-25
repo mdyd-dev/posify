@@ -55,6 +55,7 @@ const download = (url, { concurrency }) => {
     requestConcurrency: concurrency,
     maxRecursiveDepth: 3,
     directory: domain,
+    prettifyUrls: true,
     plugins: [
       new SaveToExistingDirectoryPlugin(),
       new GenerateFilename(),
