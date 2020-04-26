@@ -61,6 +61,7 @@ posify/0.1.1 darwin-x64 node-v12.16.1
 <!-- commands -->
 * [`posify download --url http://example.com`](#posify-download---url-httpexamplecom)
 * [`posify forms`](#posify-forms)
+* [`posify help [COMMAND]`](#posify-help-command)
 * [`posify optimize:css`](#posify-optimizecss)
 * [`posify optimize:images`](#posify-optimizeimages)
 * [`posify optimize:js`](#posify-optimizejs)
@@ -106,6 +107,23 @@ DESCRIPTION
 ```
 
 _See code: [src/commands/forms.js](https://github.com/mdyd-dev/posify/blob/v0.1.1/src/commands/forms.js)_
+
+## `posify help [COMMAND]`
+
+display help for posify
+
+```
+USAGE
+  $ posify help [COMMAND]
+
+ARGUMENTS
+  COMMAND  command to show help for
+
+OPTIONS
+  --all  see all commands in CLI
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
 ## `posify optimize:css`
 
