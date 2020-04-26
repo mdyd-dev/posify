@@ -18,10 +18,10 @@
     "globby": "^11",
     "imageoptim-cli": "^3.0.2",
     "jsdom": "^16.2.2",
-    "mime-types": "^2.1.26",
+    "mime-types": "^2.1.27",
     "normalize-url": "^5.0.0",
-    "ora": "^4.0.3",
-    "terser": "^4.6.11",
+    "ora": "^4.0.4",
+    "terser": "^4.6.12",
     "website-scraper": "^4.2.0",
     "website-scraper-existing-directory": "^0.1.0"
   },
