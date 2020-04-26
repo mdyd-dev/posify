@@ -5,17 +5,27 @@ Convert your webpage to platformOS one
 
 This CLI consists of commands that are performing single operations on a webpage.
 
+## Process
+
 This is the order they should be run on:
 
-1. download
-2. urls
-3. forms
+1. `posify download -u url` (after download is complete, go into the directory, `cd <domain>`)
+2. `posify urls`
+3. `posify forms`
 
-Optionally, if not sure that assets are optimized: 
+Optionally, if not sure that assets are correctly optimized (usually they are not): 
 
-4. optimize:css
-5. optimize:js
-6. optimize:images
+4. `posify optimize:css`
+5. `posify optimize:js`
+6. `posify optimize:images`
+
+## Case sensitive paths
+
+All paths are lowercased to guarantee compatibility. Some webpages were using methods incompatible with *nix systems.
+
+So path `https://example.com/IMAGES/bg.jpg` will become a file `app/assets/images/bg.jpg`
+
+Some pages have both: `Images/bg.jpg` and `images/avatar.jpg` on the same page, but because `Images` and `images` directories cannot coexist in the same place on *nix systems, it caused some assets to be in the wrong place.
 
 <!-- toc -->
 * [Usage](#usage)
@@ -37,13 +47,18 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`posify download --url http://example.com`](#posify-download---url-httpexamplecom)
-* [`posify forms`](#posify-forms)
-* [`posify help [COMMAND]`](#posify-help-command)
-* [`posify optimize:css`](#posify-optimizecss)
-* [`posify optimize:images`](#posify-optimizeimages)
-* [`posify optimize:js`](#posify-optimizejs)
-* [`posify urls`](#posify-urls)
+- [posify](#posify)
+  - [Process](#process)
+  - [Case sensitive paths](#case-sensitive-paths)
+- [Usage](#usage)
+- [Commands](#commands)
+  - [`posify download --url http://example.com`](#posify-download---url-httpexamplecom)
+  - [`posify forms`](#posify-forms)
+  - [`posify help [COMMAND]`](#posify-help-command)
+  - [`posify optimize:css`](#posify-optimizecss)
+  - [`posify optimize:images`](#posify-optimizeimages)
+  - [`posify optimize:js`](#posify-optimizejs)
+  - [`posify urls`](#posify-urls)
 
 ## `posify download --url http://example.com`
 
