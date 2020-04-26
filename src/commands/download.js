@@ -92,7 +92,7 @@ only files within example.com will be downloaded.
 `;
 
 DownloadCommand.usage = 'download --url http://example.com';
-DownloadCommand.example = 'posify download -c 5 -u http://example.com';
+DownloadCommand.example = 'posify download -c 25 -u http://example.com';
 
 DownloadCommand.flags = {
   url: flags.string({

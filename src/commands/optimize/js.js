@@ -15,7 +15,7 @@ const minify = ({ filePath, fileContent }) => {
 class JSCommand extends Command {
   async run() {
     const { flags } = this.parse(JSCommand);
-    const files = await glob([`${flags.input}/**/*.js`, `!${flags.input}/**/*.min.js`]);
+    const files = await glob([`**/*.js`, `!**/*.min.js`]);
 
     if (files.length === 0) {
       return console.log("No JS to minify.");
@@ -31,14 +31,5 @@ JSCommand.description = `Minify JS code
 Makes your JS files smaller and production ready
 Ignores files that end with .min.js
 `;
-
-JSCommand.flags = {
-  input: flags.string({
-    char: "i",
-    description: "Input directory",
-    required: true,
-    default: ".",
-  }),
-};
 
 module.exports = JSCommand;

@@ -9,29 +9,19 @@ class UrlsCommand extends Command {
   async run() {
     const { flags } = this.parse(UrlsCommand);
 
-    let files = await glob(`${flags.input}/**/*.html`);
-
-    console.log(`Updating urls in ${files.length} files`);
+    let files = await glob(`app/views/pages/**/*.html`);
 
     try {
       files.map(getFile).map(replaceUrls).map(saveFile);
+      console.log(`Updated urls in ${files.length} files.`);
     } catch (error) {
       console.log(`Error: ${error}`);
     }
   }
 }
 
-UrlsCommand.description = `Find relative paths and update them
+UrlsCommand.description = `Update relative paths to use platformOS CDN
 Find and replace urls in html files, mostly needed for assets
 `;
-
-UrlsCommand.flags = {
-  input: flags.string({
-    char: "i",
-    description: "Input directory",
-    required: true,
-    default: ".",
-  }),
-};
 
 module.exports = UrlsCommand;

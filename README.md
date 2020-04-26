@@ -28,37 +28,43 @@ So path `https://example.com/IMAGES/bg.jpg` will become a file `app/assets/image
 Some pages have both: `Images/bg.jpg` and `images/avatar.jpg` on the same page, but because `Images` and `images` directories cannot coexist in the same place on *nix systems, it caused some assets to be in the wrong place.
 
 <!-- toc -->
-* [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
-# Usage
-<!-- usage -->
+
+## Installation
 ```sh-session
 $ npm install -g posify
-$ posify COMMAND
-running command...
-$ posify (-v|--version|version)
-posify/0.1.1 darwin-x64 node-v12.16.1
-$ posify --help [COMMAND]
-USAGE
-  $ posify COMMAND
-...
 ```
-<!-- usagestop -->
+
+## Help usage
+```sh-session
+$ posify help [COMMAND]
+
+$ posify (-v|--version|version)
+```
+
+Example:
+
+```sh-session
+$ posify help
+
+$ posify help download
+```
+
+```sh-session
+$ posify -v
+posify/0.1.1 darwin-x64 node-v12.16.1
+```
+
+
 # Commands
 <!-- commands -->
-- [posify](#posify)
-  - [Process](#process)
-  - [Case sensitive paths](#case-sensitive-paths)
-- [Usage](#usage)
-- [Commands](#commands)
-  - [`posify download --url http://example.com`](#posify-download---url-httpexamplecom)
-  - [`posify forms`](#posify-forms)
-  - [`posify help [COMMAND]`](#posify-help-command)
-  - [`posify optimize:css`](#posify-optimizecss)
-  - [`posify optimize:images`](#posify-optimizeimages)
-  - [`posify optimize:js`](#posify-optimizejs)
-  - [`posify urls`](#posify-urls)
+* [`posify download --url http://example.com`](#posify-download---url-httpexamplecom)
+* [`posify forms`](#posify-forms)
+* [`posify optimize:css`](#posify-optimizecss)
+* [`posify optimize:images`](#posify-optimizeimages)
+* [`posify optimize:js`](#posify-optimizejs)
+* [`posify urls`](#posify-urls)
 
 ## `posify download --url http://example.com`
 
@@ -80,7 +86,7 @@ DESCRIPTION
   only files within example.com will be downloaded.
 
 EXAMPLES
-  posify download -c 5 -u http://example.com
+  posify download -c 25 -u http://example.com
 ```
 
 _See code: [src/commands/download.js](https://github.com/mdyd-dev/posify/blob/v0.1.1/src/commands/download.js)_
@@ -93,32 +99,13 @@ Installs Simpleform module
 USAGE
   $ posify forms
 
-OPTIONS
-  -i, --input=input  (required) [default: .] Input directory
-
 DESCRIPTION
-  Install Simpleform module that sends email to the app owner when form is submitted.
-  This command will create modules/ directory inside input directory (root)
+  Install Simpleform module. It sends email to the app owner when form is submitted.
+  This command will create modules/ directory in current directory.
+  You should run this command in root directory of the project (where you see app/)
 ```
 
 _See code: [src/commands/forms.js](https://github.com/mdyd-dev/posify/blob/v0.1.1/src/commands/forms.js)_
-
-## `posify help [COMMAND]`
-
-display help for posify
-
-```
-USAGE
-  $ posify help [COMMAND]
-
-ARGUMENTS
-  COMMAND  command to show help for
-
-OPTIONS
-  --all  see all commands in CLI
-```
-
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
 ## `posify optimize:css`
 
@@ -127,9 +114,6 @@ Minify CSS files
 ```
 USAGE
   $ posify optimize:css
-
-OPTIONS
-  -i, --input=input  (required) [default: .] Input directory
 
 DESCRIPTION
   Makes your CSS files smaller and production ready
@@ -147,12 +131,14 @@ USAGE
   $ posify optimize:images
 
 OPTIONS
-  -i, --input=input      (required) [default: .] Input directory
   -q, --quality=quality  [default: 70-85] Quality range
 
 DESCRIPTION
   Optimize jpeg/jpg, png, gif, svg and webp files to make them web-ready
-  Requires ImageOptim to be installed in the system. Download at: https://imageoptim.com/mac
+  Requires ImageOptim to be installed in the system.
+
+  Install via brew: "brew update && brew cask install imageoptim"
+  Install with GUI: https://imageoptim.com/mac
 ```
 
 _See code: [src/commands/optimize/images.js](https://github.com/mdyd-dev/posify/blob/v0.1.1/src/commands/optimize/images.js)_
@@ -165,9 +151,6 @@ Minify JS code
 USAGE
   $ posify optimize:js
 
-OPTIONS
-  -i, --input=input  (required) [default: .] Input directory
-
 DESCRIPTION
   Makes your JS files smaller and production ready
   Ignores files that end with .min.js
@@ -177,14 +160,11 @@ _See code: [src/commands/optimize/js.js](https://github.com/mdyd-dev/posify/blob
 
 ## `posify urls`
 
-Find relative paths and update them
+Update relative paths to use platformOS CDN
 
 ```
 USAGE
   $ posify urls
-
-OPTIONS
-  -i, --input=input  (required) [default: .] Input directory
 
 DESCRIPTION
   Find and replace urls in html files, mostly needed for assets

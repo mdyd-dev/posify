@@ -15,7 +15,7 @@ const minify = ({ filePath, fileContent }) => {
 class CSSCommand extends Command {
   async run() {
     const { flags } = this.parse(CSSCommand);
-    const files = await glob([`${flags.input}/**/*.css`, `!${flags.input}/**/*.min.css`]);
+    const files = await glob([`**/*.css`, `!**/*.min.css`]);
 
     if (files.length === 0) {
       return console.log("No CSS to minify.");
@@ -31,14 +31,5 @@ CSSCommand.description = `Minify CSS files
 Makes your CSS files smaller and production ready
 Ignores files that end with .min.css
 `;
-
-CSSCommand.flags = {
-  input: flags.string({
-    char: "i",
-    description: "Input directory",
-    required: true,
-    default: ".",
-  }),
-};
 
 module.exports = CSSCommand;

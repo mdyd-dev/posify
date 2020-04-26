@@ -10,7 +10,6 @@
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
-    "@oclif/plugin-help": "^2",
     "@oclif/plugin-not-found": "^1.2.3",
     "@oclif/plugin-warn-if-update-available": "^1.7.0",
     "clean-css": "^4.2.3",
@@ -45,7 +44,6 @@
     "commands": "./src/commands",
     "bin": "posify",
     "plugins": [
-      "@oclif/plugin-help",
       "@oclif/plugin-warn-if-update-available",
       "@oclif/plugin-not-found"
     ]

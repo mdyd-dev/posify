@@ -10,7 +10,7 @@ class Forms extends Command {
       "npx",
       ["degit", "mdyd-dev/simpleform", "--force"],
       {
-        cwd: path.resolve(flags.input)
+        cwd: path.resolve('.')
       }
     );
 
@@ -25,17 +25,10 @@ class Forms extends Command {
 }
 
 Forms.description = `Installs Simpleform module
-Install Simpleform module that sends email to the app owner when form is submitted.
-This command will create modules/ directory inside input directory (root)
+Install Simpleform module. It sends email to the app owner when form is submitted.
+This command will create modules/ directory in current directory.
+You should run this command in root directory of the project (where you see app/)
 `;
 
-Forms.flags = {
-  input: flags.string({
-    char: "i",
-    description: "Input directory",
-    required: true,
-    default: "."
-  })
-};
 
 module.exports = Forms;
