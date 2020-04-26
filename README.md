@@ -28,7 +28,7 @@ $ npm install -g posify
 $ posify COMMAND
 running command...
 $ posify (-v|--version|version)
-posify/0.1.0 darwin-x64 node-v13.12.0
+posify/0.1.1 darwin-x64 node-v12.16.1
 $ posify --help [COMMAND]
 USAGE
   $ posify COMMAND
@@ -54,7 +54,7 @@ USAGE
   $ posify download --url http://example.com
 
 OPTIONS
-  -c, --concurrency=concurrency  [default: 3] Max concurrent connections
+  -c, --concurrency=concurrency  [default: 15] Max concurrent connections
   -u, --url=url                  (required) URL of webpage to download
 
 DESCRIPTION
@@ -68,7 +68,7 @@ EXAMPLES
   posify download -c 5 -u http://example.com
 ```
 
-_See code: [src/commands/download.js](https://github.com/mdyd-dev/posify/blob/v0.1.0/src/commands/download.js)_
+_See code: [src/commands/download.js](https://github.com/mdyd-dev/posify/blob/v0.1.1/src/commands/download.js)_
 
 ## `posify forms`
 
@@ -86,7 +86,7 @@ DESCRIPTION
   This command will create modules/ directory inside input directory (root)
 ```
 
-_See code: [src/commands/forms.js](https://github.com/mdyd-dev/posify/blob/v0.1.0/src/commands/forms.js)_
+_See code: [src/commands/forms.js](https://github.com/mdyd-dev/posify/blob/v0.1.1/src/commands/forms.js)_
 
 ## `posify help [COMMAND]`
 
@@ -121,7 +121,7 @@ DESCRIPTION
   Ignores files that end with .min.css
 ```
 
-_See code: [src/commands/optimize/css.js](https://github.com/mdyd-dev/posify/blob/v0.1.0/src/commands/optimize/css.js)_
+_See code: [src/commands/optimize/css.js](https://github.com/mdyd-dev/posify/blob/v0.1.1/src/commands/optimize/css.js)_
 
 ## `posify optimize:images`
 
@@ -140,7 +140,7 @@ DESCRIPTION
   Requires ImageOptim to be installed in the system. Download at: https://imageoptim.com/mac
 ```
 
-_See code: [src/commands/optimize/images.js](https://github.com/mdyd-dev/posify/blob/v0.1.0/src/commands/optimize/images.js)_
+_See code: [src/commands/optimize/images.js](https://github.com/mdyd-dev/posify/blob/v0.1.1/src/commands/optimize/images.js)_
 
 ## `posify optimize:js`
 
@@ -158,7 +158,7 @@ DESCRIPTION
   Ignores files that end with .min.js
 ```
 
-_See code: [src/commands/optimize/js.js](https://github.com/mdyd-dev/posify/blob/v0.1.0/src/commands/optimize/js.js)_
+_See code: [src/commands/optimize/js.js](https://github.com/mdyd-dev/posify/blob/v0.1.1/src/commands/optimize/js.js)_
 
 ## `posify urls`
 
@@ -175,5 +175,5 @@ DESCRIPTION
   Find and replace urls in html files, mostly needed for assets
 ```
 
-_See code: [src/commands/urls.js](https://github.com/mdyd-dev/posify/blob/v0.1.0/src/commands/urls.js)_
+_See code: [src/commands/urls.js](https://github.com/mdyd-dev/posify/blob/v0.1.1/src/commands/urls.js)_
 <!-- commandsstop -->
