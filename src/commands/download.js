@@ -1,18 +1,18 @@
 const { Command, flags } = require("@oclif/command");
 const { normalizeUrl, getHostFromUrl } = require("../lib/utils");
-const URL = require("url");
-const root = require("root-domain");
 const scrape = require("website-scraper");
 const SaveToExistingDirectoryPlugin = require("website-scraper-existing-directory");
 const GenerateFilename = require("../lib/scraper-plugins/generate-filename");
 
 const ora = require("ora");
 
+const root = url => getHostFromUrl(url).replace(/^www\./, '');
+
 const isEligible = (currentUrl, domain) => {
-  const currentDomain = getHostFromUrl(currentUrl).replace(/^www\./, '');
+  const currentDomain = root(currentUrl);
   const dynamic = /(.aspx|.php|.cgi|.cfm|.jsp|.asp)/.test(currentUrl);
 
-  if (process.env.DEBUG) {
+  if (process.env.DEBUG === "true") {
     console.log('Domain info', {
       currentDomain,
       dynamic
@@ -29,7 +29,7 @@ const isEligible = (currentUrl, domain) => {
 const download = (url, { concurrency }) => {
   const domain = getHostFromUrl(url);
 
-  if (process.env.DEBUG) {
+  if (process.env.DEBUG === "true") {
     console.log('URL', {
       url,
       domain
@@ -43,7 +43,7 @@ const download = (url, { concurrency }) => {
     urlFilter: (currentUrl) => {
       if (!isEligible(currentUrl, domain)) return false;
 
-      if (process.env.DEBUG) {
+      if (process.env.DEBUG === "true") {
         console.log(`Fetching ${currentUrl}`);
       } else {
         process.stdout.write(".");
@@ -103,7 +103,7 @@ DownloadCommand.flags = {
   concurrency: flags.integer({
     char: "c",
     description: "Max concurrent connections",
-    default: 10
+    default: 15
   }),
 };
 

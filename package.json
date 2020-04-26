@@ -21,7 +21,6 @@
     "mime-types": "^2.1.26",
     "normalize-url": "^5.0.0",
     "ora": "^4.0.3",
-    "root-domain": "^0.1.0",
     "terser": "^4.6.11",
     "website-scraper": "^4.2.0",
     "website-scraper-existing-directory": "^0.1.0"
