@@ -9,7 +9,7 @@ class UrlsCommand extends Command {
   async run() {
     const { flags } = this.parse(UrlsCommand);
 
-    let files = await glob(`app/views/pages/**/*.html`);
+    let files = await glob(`**/app/views/pages/**/*.html`);
 
     try {
       files.map(getFile).map(replaceUrls).map(saveFile);
