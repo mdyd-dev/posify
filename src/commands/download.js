@@ -9,19 +9,19 @@ const ora = require("ora");
 const root = url => getHostFromUrl(url).replace(/^www\./, '');
 
 const isEligible = (currentUrl, domain) => {
-  const currentDomain = root(currentUrl);
+  const rootDomain = root(currentUrl);
   const dynamic = /(.aspx|.php|.cgi|.cfm|.jsp|.asp)/.test(currentUrl);
 
   if (process.env.DEBUG === "true") {
     console.log('Domain info', {
-      currentDomain,
+      rootDomain,
+      domain,
       dynamic
     });
   }
 
-  if (currentDomain !== domain || dynamic) {
-    return false;
-  }
+  if (dynamic) return false;
+  if (domain.indexOf(rootDomain) < 0) return false;
 
   return true;
 };
