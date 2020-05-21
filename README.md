@@ -21,11 +21,11 @@ Optionally, if not sure that assets are correctly optimized (usually they are no
 
 ## Case sensitive paths
 
-All paths are lowercased to guarantee compatibility. Some webpages were using methods incompatible with *nix systems.
+All paths are lowercased to guarantee compatibility. Some webpages were using methods incompatible with mac OS.
 
 So path `https://example.com/IMAGES/bg.jpg` will become a file `app/assets/images/bg.jpg`
 
-Some pages have both: `Images/bg.jpg` and `images/avatar.jpg` on the same page, but because `Images` and `images` directories cannot coexist in the same place on *nix systems, it caused some assets to be in the wrong place.
+Some pages have both: `Images/bg.jpg` and `images/avatar.jpg` on the same page, but because `Images` and `images` directories cannot coexist in the same place on mac OS, it caused some assets to be in the wrong place.
 
 <!-- toc -->
 * [Commands](#commands)
@@ -59,13 +59,19 @@ posify/0.1.1 darwin-x64 node-v12.16.1
 
 # Commands
 <!-- commands -->
-* [`posify download --url http://example.com`](#posify-download---url-httpexamplecom)
-* [`posify forms`](#posify-forms)
-* [`posify help [COMMAND]`](#posify-help-command)
-* [`posify optimize:css`](#posify-optimizecss)
-* [`posify optimize:images`](#posify-optimizeimages)
-* [`posify optimize:js`](#posify-optimizejs)
-* [`posify urls`](#posify-urls)
+- [posify](#posify)
+  - [Process](#process)
+  - [Case sensitive paths](#case-sensitive-paths)
+  - [Installation](#installation)
+  - [Help usage](#help-usage)
+- [Commands](#commands)
+  - [`posify download --url http://example.com`](#posify-download---url-httpexamplecom)
+  - [`posify forms`](#posify-forms)
+  - [`posify help [COMMAND]`](#posify-help-command)
+  - [`posify optimize:css`](#posify-optimizecss)
+  - [`posify optimize:images`](#posify-optimizeimages)
+  - [`posify optimize:js`](#posify-optimizejs)
+  - [`posify urls`](#posify-urls)
 
 ## `posify download --url http://example.com`
 
