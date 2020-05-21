@@ -58,3 +58,7 @@ describe('Images', () => {
     });
   });
 });
+
+describe.skip('Favicon', () => {})
+describe.skip('Links', () => {})
+describe.skip('Forms', () => {})

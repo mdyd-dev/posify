@@ -1,11 +1,11 @@
 // const { isEligible } = require('./utils');
 
 module.exports = (document) => {
-  const forms = document.querySelectorAll('form[action]');
+  const forms = document.querySelectorAll("form[action]");
 
-  forms.forEach(el => {
+  forms.forEach((el) => {
     // if (!isEligible(el.action)) return;
 
-    el.action = '/__form';
+    el.action = "/__form";
   });
 };
