@@ -1,8 +1,10 @@
 const { Command, flags } = require("@oclif/command");
 const { normalizeUrl, getHostFromUrl } = require("../lib/utils");
+
 const scrape = require("website-scraper");
 const SaveToExistingDirectoryPlugin = require("website-scraper-existing-directory");
 const GenerateFilename = require("../lib/scraper-plugins/generate-filename");
+const Ignore404 = require("../lib/scraper-plugins/ignore404");
 
 const ora = require("ora");
 
@@ -59,6 +61,7 @@ const download = (url, { concurrency }) => {
     plugins: [
       new SaveToExistingDirectoryPlugin(),
       new GenerateFilename(),
+      new Ignore404(),
     ],
   });
 };
