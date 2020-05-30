@@ -79,6 +79,8 @@ class DownloadCommand extends Command {
       .then(() => {
         console.log("");
         spinner.succeed(`Downloaded ${normalizedUrl}`);
+        const dir = normalizedUrl.replace(/^https?:\/\//, '');
+        console.log(`Go to ${dir} directory to proceed with "posify urls" and other commands described in Readme.`);
       })
       .catch((error) => {
         spinner.fail(`Error: ${error}`);
