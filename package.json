@@ -54,6 +54,7 @@
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "oclif-dev manifest && oclif-dev readme",
+    "prepublish": "jest --runInBand",
     "test": "jest --runInBand",
     "test-watch": "jest --watchAll --runInBand",
     "version": "oclif-dev readme && git add README.md"
