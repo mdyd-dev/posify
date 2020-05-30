@@ -55,7 +55,7 @@ const download = (url, { concurrency }) => {
     },
     recursive: true,
     requestConcurrency: concurrency,
-    maxRecursiveDepth: 3,
+    maxRecursiveDepth: 5,
     directory: domain,
     prettifyUrls: true,
     plugins: [
