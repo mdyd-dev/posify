@@ -1,6 +1,6 @@
 const { Command, flags } = require("@oclif/command");
-const { normalizeUrl } = require("../lib/utils");
-const { isEligible } = require("../lib/utils/is-eligible");
+const { normalizeUrl, getHostFromUrl } = require("../lib/utils");
+const isEligible = require("../lib/utils/is-eligible");
 
 const scrape = require("website-scraper");
 const SaveToExistingDirectoryPlugin = require("website-scraper-existing-directory");
@@ -60,9 +60,9 @@ class DownloadCommand extends Command {
       .then(() => {
         console.log("");
         spinner.succeed(`Downloaded ${normalizedUrl}`);
+
         const dir = normalizedUrl.replace(/^https?:\/\//, '');
-        console.log(`Go to ${dir} directory to proceed with "posify urls" and other commands described in Readme.`);
-        console.log(`cd ${dir}`);
+        spinner.info(`Go to: ${dir} directory to proceed with "posify urls" and other commands described in README.`);
       })
       .catch((error) => {
         spinner.fail(`Error: ${error}`);
