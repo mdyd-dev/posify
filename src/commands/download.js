@@ -1,5 +1,6 @@
 const { Command, flags } = require("@oclif/command");
-const { normalizeUrl, getHostFromUrl } = require("../lib/utils");
+const { normalizeUrl } = require("../lib/utils");
+const { isEligible } = require("../lib/utils/is-eligible");
 
 const scrape = require("website-scraper");
 const SaveToExistingDirectoryPlugin = require("website-scraper-existing-directory");
@@ -7,26 +8,6 @@ const GenerateFilename = require("../lib/scraper-plugins/generate-filename");
 const Ignore404 = require("../lib/scraper-plugins/ignore404");
 
 const ora = require("ora");
-
-const root = url => getHostFromUrl(url).replace(/^www\./, '');
-
-const isEligible = (currentUrl, domain) => {
-  const rootDomain = root(currentUrl);
-  const dynamic = /(.aspx|.php|.cgi|.cfm|.jsp|.asp)/.test(currentUrl);
-
-  if (process.env.DEBUG === "true") {
-    console.log('Domain info', {
-      rootDomain,
-      domain,
-      dynamic
-    });
-  }
-
-  if (dynamic) return false;
-  if (domain.indexOf(rootDomain) < 0) return false;
-
-  return true;
-};
 
 const download = (url, { concurrency }) => {
   const domain = getHostFromUrl(url);
@@ -81,6 +62,7 @@ class DownloadCommand extends Command {
         spinner.succeed(`Downloaded ${normalizedUrl}`);
         const dir = normalizedUrl.replace(/^https?:\/\//, '');
         console.log(`Go to ${dir} directory to proceed with "posify urls" and other commands described in Readme.`);
+        console.log(`cd ${dir}`);
       })
       .catch((error) => {
         spinner.fail(`Error: ${error}`);
