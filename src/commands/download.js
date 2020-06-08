@@ -34,6 +34,11 @@ const download = (url, { concurrency }) => {
 
       return true;
     },
+    request: {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:77.0) Gecko/20100101 Firefox/77.0'
+      }
+    },
     recursive: true,
     requestConcurrency: concurrency,
     maxRecursiveDepth: 5,
