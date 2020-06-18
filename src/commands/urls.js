@@ -21,7 +21,8 @@ class UrlsCommand extends Command {
 }
 
 UrlsCommand.description = `Update relative paths to use platformOS CDN
-Find and replace urls in html files, mostly needed for assets
+Find and replace urls in html files, mostly needed for assets and forms.
+It will also remove any onsubmit attributes from forms.
 `;
 
 module.exports = UrlsCommand;

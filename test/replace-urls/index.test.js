@@ -2,8 +2,10 @@ const fs = require("fs");
 
 const replaceUrls = require("../../src/lib/replace-urls");
 
-const input = fs.readFileSync("./test/fixtures/test.html").toString();
+const input = fs.readFileSync("./test/fixtures/urls.html").toString();
 const { fileContent } = replaceUrls({ filePath: "", fileContent: input });
+
+// TODO: Split into its own files - Example: forms
 
 describe("Link CSS", () => {
   const expected = [
@@ -62,5 +64,4 @@ describe("Images", () => {
 
 // TODO
 describe.skip("Links", () => {});
-describe.skip("Forms", () => {});
 describe.skip("Favicon", () => {});

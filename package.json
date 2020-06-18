@@ -10,24 +10,24 @@
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
-    "@oclif/plugin-help": "^3.0.1",
+    "@oclif/plugin-help": "^3.1.0",
     "@oclif/plugin-not-found": "^1.2.4",
     "@oclif/plugin-warn-if-update-available": "^1.7.0",
     "clean-css": "^4.2.3",
     "degit": "^2.8.0",
     "globby": "^11",
     "imageoptim-cli": "^3.0.2",
-    "jsdom": "^16.2.2",
     "mime-types": "^2.1.27",
     "normalize-url": "^5.0.0",
     "ora": "^4.0.4",
-    "terser": "^4.7.0",
+    "terser": "^4.8.0",
     "website-scraper": "^4.2.1",
     "website-scraper-existing-directory": "^0.1.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",
-    "jest": "^26.0.1"
+    "jest": "^26.0.1",
+    "jsdom": "^16.2.2"
   },
   "engines": {
     "node": ">=12.0.0"
