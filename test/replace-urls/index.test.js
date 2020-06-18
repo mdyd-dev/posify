@@ -5,15 +5,16 @@ const replaceUrls = require("../../src/lib/replace-urls");
 const input = fs.readFileSync("./test/fixtures/urls.html").toString();
 const { fileContent } = replaceUrls({ filePath: "", fileContent: input });
 
-// TODO: Split into its own files - Example: forms
+/* TODO
+  Split into its own files
+  Dont use .indexOf - use JSDOM and check concrete values
+*/
 
 describe("Link CSS", () => {
   const expected = [
-    "{{ 'styles/style.css' | asset_url }}",
-    "{{ '../styles/style.css' | asset_url }}",
-    "http://example.com/assets/styles/style.css",
-    "https://example.com/assets/styles/style.css",
-    "//example.com/assets/styles/style.css",
+    "{{ 'styles/test123/assets/style.css' | asset_url }}",
+    "https://example.com/assets/test123/assets/styles/style.css",
+    "//example.com/assets/styles/test123/assets/style.css",
     "javascript:alert(this);",
   ];
 
@@ -28,11 +29,9 @@ describe("Link CSS", () => {
 
 describe("External JS", () => {
   const expected = [
-    "{{ 'scripts/app.js' | asset_url }}",
-    "{{ '../scripts/app.js' | asset_url }}",
-    "http://example.com/assets/scripts/app.js",
-    "https://example.com/assets/scripts/app.js",
-    "//example.com/assets/scripts/app.js",
+    "{{ 'scripts/test123/assets/app.js' | asset_url }}",
+    "https://example.com/assets/scripts/test123/assets/app.js",
+    "//example.com/assets/scripts/test123/assets/app.js",
   ];
 
   expected.forEach((res) => {
@@ -46,10 +45,8 @@ describe("External JS", () => {
 
 describe("Images", () => {
   const expected = [
-    "{{ 'images/my_image+2.png' | asset_url }}",
-    "{{ '../images/my_image+2.png' | asset_url }}",
-    "http://example.com/assets/images/my_image+2.png",
-    "https://example.com/assets/images/my_image+2.png",
+    "{{ 'images/test123/assets/my_image+2.png' | asset_url }}",
+    "https://example.com/assets/images/test123/assets/my_image+2.png",
     "data:image/jpeg;base64,/",
   ];
 

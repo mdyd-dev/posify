@@ -24,9 +24,9 @@ const isEligible = (url) => {
 
 const getAssetPath = (url) => {
   return url
-    .replace(/^\//, "")
-    .split(/\d*\/assets\//) // ../../../assets/instances/106/assets/images/favicon.ico -> images/favicon.ico
-    .pop();
+    .replace(/^\//, "") // first slash
+    .replace(/\/?\.\.\//g,'') // ../ - relative path
+    .replace(/^assets\//, '') // first assets
 };
 
 const assetify = (url) => {
