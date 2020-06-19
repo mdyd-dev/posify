@@ -123,7 +123,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.0.1/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.1.0/src/commands/help.ts)_
 
 ## `posify optimize:css`
 
@@ -185,7 +185,8 @@ USAGE
   $ posify urls
 
 DESCRIPTION
-  Find and replace urls in html files, mostly needed for assets
+  Find and replace urls in html files, mostly needed for assets and forms.
+  It will also remove any onsubmit attributes from forms.
 ```
 
 _See code: [src/commands/urls.js](https://github.com/mdyd-dev/posify/blob/v0.2.0/src/commands/urls.js)_
