@@ -1,7 +1,7 @@
-class ignore404 {
+class FilterSuccess {
   apply(registerAction) {
     registerAction("afterResponse", ({ response }) => {
-      if (response.statusCode === 404) {
+      if (response.statusCode >= 200 && response.statusCode <= 299) {
         return Promise.reject(null);
       } else {
         return Promise.resolve(response.body);
@@ -10,4 +10,4 @@ class ignore404 {
   }
 }
 
-module.exports = ignore404;
+module.exports = FilterSuccess;
