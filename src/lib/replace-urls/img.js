@@ -1,15 +1,15 @@
 const { isEligible, assetify, isAssetified } = require("./utils");
 
-module.exports = (document) => {
-  const img = document.querySelectorAll("img");
+module.exports = ($) => {
+  const img = $('img[src]');
 
-  img.forEach((el) => {
-    if (!isEligible(el.src)) return;
+  img.each((i, el) => {
+    if (!isEligible(el.attribs.src)) return;
 
-    el.src = assetify(el.src);
+    el.attribs.src = assetify(el.attribs.src);
 
-    if (isAssetified(el.src)) return;
+    if (isAssetified(el.attribs.src)) return;
 
-    el.src = el.src.replace(/^http:/, "https:"); // do not request http resources from https
+    el.attribs.src = el.attribs.src.replace(/^http:/, "https:"); // do not request http resources from https
   });
 };

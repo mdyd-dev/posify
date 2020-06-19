@@ -1,10 +1,10 @@
-module.exports = (document) => {
-  const forms = [...document.querySelectorAll("form[action]"), ...document.querySelectorAll("form[onsubmit]")];
+module.exports = ($) => {
+  const forms = $("form[action], form[onsubmit]");
 
-  forms.forEach(el => {
-    el.action = "/__form";
-    el.removeAttribute('onsubmit');
+  forms.each((i, el) => {
+    el.attribs.action = "/__form";
+    el.attribs.onsubmit = '';
   });
 
-  return document;
+  return forms;
 };

@@ -1,15 +1,15 @@
 const { isEligible, assetify, isAssetified } = require("./utils");
 
-module.exports = (document) => {
-  const js = document.querySelectorAll("script[src]");
+module.exports = ($) => {
+  const js = $("script[src]");
 
-  js.forEach((el) => {
-    if (!isEligible(el.src)) return;
+  js.each((i, el) => {
+    if (!isEligible(el.attribs.src)) return;
 
-    el.src = assetify(el.src);
+    el.attribs.src = assetify(el.attribs.src);
 
-    if (isAssetified(el.src)) return;
+    if (isAssetified(el.attribs.src)) return;
 
-    el.src = el.src.replace(/^http:/, "https:");
+    el.attribs.src = el.attribs.src.replace(/^http:/, "https:");
   });
 };

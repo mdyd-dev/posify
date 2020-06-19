@@ -1,17 +1,17 @@
 const { isEligible, assetify, isAssetified } = require("./utils");
 
-module.exports = (document) => {
-  const a = document.querySelectorAll("a[href]");
+module.exports = ($) => {
+  const a = $("a[href]");
 
-  a.forEach((el) => {
-    if (!isEligible(el.href)) return;
+  a.each((i, el) => {
+    if (!isEligible(el.attribs.href)) return;
 
-    if (/\/assets\//.test(el.href)) {
-      el.href = assetify(el.href);
+    if (/\/assets\//.test(el.attribs.href)) {
+      el.attribs.href = assetify(el.attribs.href);
     }
 
-    if (isAssetified(el.href)) return;
+    if (isAssetified(el.attribs.href)) return;
 
-    el.href = el.href.replace(/^http:/, "https:");
+    el.attribs.href = el.attribs.href.replace(/^http:/, "https:");
   });
 };
