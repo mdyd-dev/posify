@@ -6,6 +6,8 @@ node_modules
 tags
 pos
 .npmrc
+tmp
+.tmp
 
 www*
 *.com*
