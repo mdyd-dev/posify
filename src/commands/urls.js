@@ -1,6 +1,5 @@
 const { Command, flags } = require("@oclif/command");
 const glob = require("globby");
-const eachLimit = require("async/eachLimit");
 
 const replaceUrls = require("../lib/replace-urls");
 
