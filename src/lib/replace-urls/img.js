@@ -1,4 +1,5 @@
-const { isEligible, assetify, isAssetified } = require("./utils");
+const assetify = require('../utils/assetify');
+const isEligible = require('../utils/isEligible');
 
 module.exports = ($) => {
   const img = $('img[src]');
@@ -8,8 +9,8 @@ module.exports = ($) => {
 
     el.attribs.src = assetify(el.attribs.src);
 
-    if (isAssetified(el.attribs.src)) return;
-
     el.attribs.src = el.attribs.src.replace(/^http:/, "https:"); // do not request http resources from https
   });
+
+  return img;
 };

@@ -1,4 +1,5 @@
-const { isEligible, assetify, isAssetified } = require("./utils");
+const assetify = require('../utils/assetify');
+const isEligible = require('../utils/isEligible');
 
 module.exports = ($) => {
   const js = $("script[src]");
@@ -7,9 +8,8 @@ module.exports = ($) => {
     if (!isEligible(el.attribs.src)) return;
 
     el.attribs.src = assetify(el.attribs.src);
-
-    if (isAssetified(el.attribs.src)) return;
-
     el.attribs.src = el.attribs.src.replace(/^http:/, "https:");
   });
+
+  return js;
 };

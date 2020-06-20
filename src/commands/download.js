@@ -1,6 +1,6 @@
 const { Command, flags } = require("@oclif/command");
 const { normalizeUrl, getHostFromUrl } = require("../lib/utils");
-const isEligible = require("../lib/utils/is-eligible");
+const shouldDownload = require("../lib/utils/shouldDownload");
 
 const scrape = require("website-scraper");
 const SaveToExistingDirectoryPlugin = require("website-scraper-existing-directory");
@@ -24,7 +24,7 @@ const download = (url, { concurrency }) => {
   return scrape({
     urls: [url],
     urlFilter: (currentUrl) => {
-      if (!isEligible(currentUrl, domain)) return false;
+      if (!shouldDownload(currentUrl, domain)) return false;
 
       if (process.env.DEBUG === "true") {
         console.log(`Fetching ${currentUrl}`);

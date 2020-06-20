@@ -1,8 +1,7 @@
 const { Command, flags } = require("@oclif/command");
 const glob = require("globby");
+const eachLimit = require("async/eachLimit");
 
-const getFile = require("../lib/utils/get-file");
-const saveFile = require("../lib/utils/save-file");
 const replaceUrls = require("../lib/replace-urls");
 
 class UrlsCommand extends Command {
@@ -12,11 +11,11 @@ class UrlsCommand extends Command {
     let files = await glob(`**/app/views/pages/**/*.html`);
 
     try {
-      files.map(getFile).map(replaceUrls).map(saveFile);
-      console.log(`Updated urls in ${files.length} files.`);
+      files.map((f) => replaceUrls({ filePath: f }));
     } catch (error) {
       console.log(`Error: ${error}`);
     }
+    console.log(`Updated urls in ${files.length} files.`);
   }
 }
 

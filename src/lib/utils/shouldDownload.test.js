@@ -1,4 +1,4 @@
-const isEligible = require("../src/lib/utils/is-eligible");
+const shouldDownload = require("./shouldDownload");
 
 describe("Eligibility of page urls", () => {
   const domain = 'example.com';
@@ -10,7 +10,7 @@ describe("Eligibility of page urls", () => {
   ];
 
   truthy.forEach((res) => {
-    const actual = isEligible(res, domain);
+    const actual = shouldDownload(res, domain);
 
     test(res, () => {
       expect(actual).toBe(true);
@@ -25,7 +25,7 @@ describe("Eligibility of page urls", () => {
   ];
 
   falsy.forEach((res) => {
-    const actual = isEligible(res, domain);
+    const actual = shouldDownload(res, domain);
 
     test(res, () => {
       expect(actual).toBe(false);
