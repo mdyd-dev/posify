@@ -65,6 +65,7 @@ posify/0.1.1 darwin-x64 node-v12.16.1
 * [`posify optimize:css`](#posify-optimizecss)
 * [`posify optimize:images`](#posify-optimizeimages)
 * [`posify optimize:js`](#posify-optimizejs)
+* [`posify urls`](#posify-urls)
 
 ## `posify download --url http://example.com`
 
@@ -89,7 +90,7 @@ EXAMPLES
   posify download -c 25 -u http://example.com
 ```
 
-_See code: [src/commands/download.js](https://github.com/mdyd-dev/posify/blob/v0.3.0/src/commands/download.js)_
+_See code: [src/commands/download.js](https://github.com/mdyd-dev/posify/blob/v0.3.1/src/commands/download.js)_
 
 ## `posify forms`
 
@@ -105,7 +106,7 @@ DESCRIPTION
   You should run this command in root directory of the project (where you see app/)
 ```
 
-_See code: [src/commands/forms.js](https://github.com/mdyd-dev/posify/blob/v0.3.0/src/commands/forms.js)_
+_See code: [src/commands/forms.js](https://github.com/mdyd-dev/posify/blob/v0.3.1/src/commands/forms.js)_
 
 ## `posify help [COMMAND]`
 
@@ -137,7 +138,7 @@ DESCRIPTION
   Ignores files that end with .min.css
 ```
 
-_See code: [src/commands/optimize/css.js](https://github.com/mdyd-dev/posify/blob/v0.3.0/src/commands/optimize/css.js)_
+_See code: [src/commands/optimize/css.js](https://github.com/mdyd-dev/posify/blob/v0.3.1/src/commands/optimize/css.js)_
 
 ## `posify optimize:images`
 
@@ -158,7 +159,7 @@ DESCRIPTION
   Install with GUI: https://imageoptim.com/mac
 ```
 
-_See code: [src/commands/optimize/images.js](https://github.com/mdyd-dev/posify/blob/v0.3.0/src/commands/optimize/images.js)_
+_See code: [src/commands/optimize/images.js](https://github.com/mdyd-dev/posify/blob/v0.3.1/src/commands/optimize/images.js)_
 
 ## `posify optimize:js`
 
@@ -173,5 +174,20 @@ DESCRIPTION
   Ignores files that end with .min.js
 ```
 
-_See code: [src/commands/optimize/js.js](https://github.com/mdyd-dev/posify/blob/v0.3.0/src/commands/optimize/js.js)_
+_See code: [src/commands/optimize/js.js](https://github.com/mdyd-dev/posify/blob/v0.3.1/src/commands/optimize/js.js)_
+
+## `posify urls`
+
+Update relative paths to use platformOS CDN
+
+```
+USAGE
+  $ posify urls
+
+DESCRIPTION
+  Find and replace urls in html files, mostly needed for assets and forms.
+  It will also remove any onsubmit attributes from forms.
+```
+
+_See code: [src/commands/urls.js](https://github.com/mdyd-dev/posify/blob/v0.3.1/src/commands/urls.js)_
 <!-- commandsstop -->
