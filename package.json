@@ -34,9 +34,9 @@
   },
   "files": [
     "/bin",
-    "/npm-shrinkwrap.json",
-    "/oclif.manifest.json",
-    "/src"
+    "/src/**/*.js",
+    "!/src/**/*.test.js",
+    "/oclif.manifest.json"
   ],
   "homepage": "https://github.com/mdyd-dev/posify",
   "license": "MIT",
