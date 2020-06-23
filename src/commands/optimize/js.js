@@ -5,10 +5,13 @@ const Terser = require("terser");
 const getFile = require("../../lib/utils/getFile");
 const saveFile = require("../../lib/utils/saveFile");
 
-const minify = ({ filePath, fileContent }) => {
+const minify = (filePath) => {
+  const fileContent = getFile(filePath);
+  const processed = Terser.minify(fileContent);
+
   return {
     filePath,
-    fileContent: Terser.minify(fileContent).code,
+    fileContent: processed.code,
   };
 };
 
@@ -21,7 +24,7 @@ class JSCommand extends Command {
       return console.log("No JS to minify.");
     }
 
-    files.map(getFile).map(minify).map(saveFile);
+    files.map(minify);
 
     console.log(`Minified ${files.length} JS files.`);
   }

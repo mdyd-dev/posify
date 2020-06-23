@@ -5,10 +5,13 @@ const CleanCSS = require("clean-css");
 const getFile = require("../../lib/utils/getFile");
 const saveFile = require("../../lib/utils/saveFile");
 
-const minify = ({ filePath, fileContent }) => {
+const minify = (filePath) => {
+  const fileContent = getFile(filePath);
+  const processed = new CleanCSS({ inline: false }).minify(fileContent);
+
   return {
     filePath,
-    fileContent: new CleanCSS({ inline: false }).minify(fileContent).styles,
+    fileContent: processed.styles
   };
 };
 
@@ -21,7 +24,7 @@ class CSSCommand extends Command {
       return console.log("No CSS to minify.");
     }
 
-    files.map(getFile).map(minify).map(saveFile);
+    files.map(minify);
 
     console.log(`Minified ${files.length} CSS files.`);
   }
