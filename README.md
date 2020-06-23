@@ -90,7 +90,7 @@ EXAMPLES
   posify download -c 25 -u http://example.com
 ```
 
-_See code: [src/commands/download.js](https://github.com/mdyd-dev/posify/blob/v0.3.3/src/commands/download.js)_
+_See code: [src/commands/download.js](https://github.com/mdyd-dev/posify/blob/v0.3.4/src/commands/download.js)_
 
 ## `posify forms`
 
@@ -106,7 +106,7 @@ DESCRIPTION
   You should run this command in root directory of the project (where you see app/)
 ```
 
-_See code: [src/commands/forms.js](https://github.com/mdyd-dev/posify/blob/v0.3.3/src/commands/forms.js)_
+_See code: [src/commands/forms.js](https://github.com/mdyd-dev/posify/blob/v0.3.4/src/commands/forms.js)_
 
 ## `posify help [COMMAND]`
 
@@ -123,7 +123,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.1.0/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
 ## `posify optimize:css`
 
@@ -138,7 +138,7 @@ DESCRIPTION
   Ignores files that end with .min.css
 ```
 
-_See code: [src/commands/optimize/css.js](https://github.com/mdyd-dev/posify/blob/v0.3.3/src/commands/optimize/css.js)_
+_See code: [src/commands/optimize/css.js](https://github.com/mdyd-dev/posify/blob/v0.3.4/src/commands/optimize/css.js)_
 
 ## `posify optimize:images`
 
@@ -159,7 +159,7 @@ DESCRIPTION
   Install with GUI: https://imageoptim.com/mac
 ```
 
-_See code: [src/commands/optimize/images.js](https://github.com/mdyd-dev/posify/blob/v0.3.3/src/commands/optimize/images.js)_
+_See code: [src/commands/optimize/images.js](https://github.com/mdyd-dev/posify/blob/v0.3.4/src/commands/optimize/images.js)_
 
 ## `posify optimize:js`
 
@@ -174,7 +174,7 @@ DESCRIPTION
   Ignores files that end with .min.js
 ```
 
-_See code: [src/commands/optimize/js.js](https://github.com/mdyd-dev/posify/blob/v0.3.3/src/commands/optimize/js.js)_
+_See code: [src/commands/optimize/js.js](https://github.com/mdyd-dev/posify/blob/v0.3.4/src/commands/optimize/js.js)_
 
 ## `posify urls`
 
@@ -189,5 +189,5 @@ DESCRIPTION
   It will also remove any onsubmit attributes from forms.
 ```
 
-_See code: [src/commands/urls.js](https://github.com/mdyd-dev/posify/blob/v0.3.3/src/commands/urls.js)_
+_See code: [src/commands/urls.js](https://github.com/mdyd-dev/posify/blob/v0.3.4/src/commands/urls.js)_
 <!-- commandsstop -->
